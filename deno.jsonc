@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "@hono/vite-build": "npm:@hono/vite-build@^1.6.0",
+    "@hono/vite-dev-server": "npm:@hono/vite-dev-server@^0.19.0",
+    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.4",
+    "@types/node": "npm:@types/node@^22.14.1",
+    "@types/react": "npm:@types/react@^19.1.2",
+    "@types/react-dom": "npm:@types/react-dom@^19.1.2",
+    "hono": "npm:hono@^4.7.7",
+    "honox": "npm:honox@^0.1.40",
+    "vite": "npm:vite@^6.3.2"
+  },
+  "nodeModulesDir": "auto",
+  "workspace": ["./frontend", "./graphql"],
+  "tasks": {
+    "f:dev": "deno task --cwd=./frontend dev"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@my-app/graphql",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "imports": {
+    "@hono/graphql-server": "npm:@hono/graphql-server@^0.5.1",
+    "graphql": "npm:graphql@^16.11.0"
+  }
+}
