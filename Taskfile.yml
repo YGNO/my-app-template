@@ -1,0 +1,25 @@
+version: "3"
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  db-up:
+    cmds:
+      - npx supabase start
+
+  db-reset:
+    cmds:
+      - npx supabase db reset
+
+  db-migration-add:
+    cmds:
+      - npx supabase migration new {{.CLI_ARGS}}
+
+  db-migration-up:
+    cmds:
+      - npx supabase migration up {{.CLI_ARGS}}
+
+  front-up:
+    cmds:
+      - deno task f:dev
