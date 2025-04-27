@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => {
         external: [
           "react",
           "react-dom",
+          "graphql",
           "@hono/graphql-server",
         ],
       },

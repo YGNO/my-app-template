@@ -13,6 +13,7 @@
   "nodeModulesDir": "auto",
   "workspace": ["./frontend", "./graphql"],
   "tasks": {
-    "f:dev": "deno task --cwd=./frontend dev"
+    "f:dev": "deno task --cwd=./frontend dev",
+    "db:pull": "deno task --cwd=./graphql drizzle-pull"
   }
 }

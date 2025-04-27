@@ -20,6 +20,11 @@ tasks:
     cmds:
       - npx supabase migration up {{.CLI_ARGS}}
 
+  db-pull:
+    dotenv: [".env.local"]
+    cmds:
+      - deno task db:pull
+
   front-up:
     cmds:
       - deno task f:dev
