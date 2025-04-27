@@ -4,9 +4,10 @@ WebAPP用テンプレート
 
 ## 環境
 
-- FE：honox
+- FE：honox + react
+- BE：hono + graphql
+- DB：drizzle + supabase
 - Runtime：deno
-- DB：supabase
 
 ## 起動
 
