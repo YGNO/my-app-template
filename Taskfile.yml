@@ -4,26 +4,36 @@ vars:
   GREETING: Hello, World!
 
 tasks:
-  db-up:
+  sb-up:
     cmds:
       - npx supabase start
 
-  db-reset:
+  sb-reset:
     cmds:
       - npx supabase db reset
 
-  db-migration-add:
+  sb-migration-add:
     cmds:
       - npx supabase migration new {{.CLI_ARGS}}
 
-  db-migration-up:
+  sb-migration-up:
     cmds:
       - npx supabase migration up {{.CLI_ARGS}}
 
-  db-pull:
+  sb-pull:
     dotenv: [".env.local"]
     cmds:
       - deno task db:pull
+
+  sb-link:
+    dotenv: [".env.dev"]
+    cmds:
+      - npx supabase link -p $SUPABASE_DB_PASS --project-ref $SUPABASE_PROJECT_ID
+
+  sb-fndeploy:
+    dotenv: [".env.dev"]
+    cmds:
+      - npx supabase functions deploy
 
   front-up:
     cmds:

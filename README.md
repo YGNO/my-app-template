@@ -14,6 +14,6 @@ WebAPP用テンプレート
 ```bash
 curl -fsSL https://deno.land/install.sh | sh
 # Supabase のイメージをセットアップするので、初回のみ時間がかかる
-task db-up
+task sb-up
 task front-up
 ```
