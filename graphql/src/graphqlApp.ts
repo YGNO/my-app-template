@@ -1,29 +1,16 @@
 import { graphqlServer } from "@hono/graphql-server";
 import { Hono } from "hono";
-
-import SchemaBuilder from "@pothos/core";
-
-const builder = new SchemaBuilder({});
-
-builder.queryType({
-  fields: (t) => ({
-    hello: t.string({
-      args: {
-        name: t.arg.string(),
-      },
-      resolve: (_parent, { name }) => {
-        return `hello, ${name || "World"}`;
-      },
-    }),
-  }),
-});
+import { buildSchema } from "drizzle-graphql";
+import { drizzleClient } from "./drizzle/drizzleClient.ts";
 
 const graphqlApp = new Hono();
+
+const { schema } = buildSchema(drizzleClient);
 
 graphqlApp.use(
   "/",
   graphqlServer({
-    schema: builder.toSchema(),
+    schema: schema,
     graphiql: true,
   }),
 );

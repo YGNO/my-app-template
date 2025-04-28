@@ -36,5 +36,6 @@ tasks:
       - npx supabase functions deploy
 
   front-up:
+    dotenv: [".env.local"]
     cmds:
       - deno task f:dev

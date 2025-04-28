@@ -8,8 +8,6 @@ import { IncomingMessage, ServerResponse } from "node:http";
 
 // Note: @deno/vite-plugin を利用すると、特定の npm インストールしたモジュールロードのパフォーマンスが劣化するので利用しない。
 //       なので、jsr、http を利用したモジュールのインポートは行わない。
-// Note: モジュールの依存関係解決は分散させたくないので、package.json で一元管理する。
-// FIXME: package.json で管理している場合、ソースコード上で import する場合のモジュールのサジェストが効かないのでなんとかしたい。
 export default defineConfig(({ mode }) => {
   const config = {
     cacheDir: "node_modules/.vite",
@@ -31,6 +29,8 @@ export default defineConfig(({ mode }) => {
           "react-dom",
           "graphql",
           "@hono/graphql-server",
+          "drizzle-graphql",
+          "pg",
         ],
       },
       esbuild: {

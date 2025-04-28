@@ -6,7 +6,6 @@
     "npm:@hono/vite-build@^1.6.0": "1.6.0_hono@4.7.7",
     "npm:@hono/vite-dev-server@0.19": "0.19.0_hono@4.7.7",
     "npm:@hookform/resolvers@^5.0.1": "5.0.1_react-hook-form@7.56.1__react@19.1.0_react@19.1.0",
-    "npm:@pothos/core@^4.6.0": "4.6.0_graphql@16.11.0",
     "npm:@radix-ui/react-dialog@^1.1.11": "1.1.11_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-label@^2.1.4": "2.1.4_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-popover@^1.1.10": "1.1.11_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -22,15 +21,15 @@
     "npm:class-variance-authority@~0.7.1": "0.7.1",
     "npm:clsx@^2.1.1": "2.1.1",
     "npm:date-fns@^4.1.0": "4.1.0",
-    "npm:drizzle-orm@*": "0.43.1_postgres@3.4.5_pg@8.15.6",
-    "npm:drizzle-orm@~0.43.1": "0.43.1_postgres@3.4.5_pg@8.15.6",
+    "npm:drizzle-graphql@~0.8.5": "0.8.5_drizzle-orm@0.43.1__pg@8.15.6_graphql@16.11.0_pg@8.15.6",
+    "npm:drizzle-orm@*": "0.43.1_pg@8.15.6",
+    "npm:drizzle-orm@~0.43.1": "0.43.1_pg@8.15.6",
     "npm:graphql@^16.11.0": "16.11.0",
     "npm:hono@^4.7.7": "4.7.7",
     "npm:honox@~0.1.40": "0.1.40_hono@4.7.7",
     "npm:lucide-react@0.503": "0.503.0_react@19.1.0",
     "npm:pg@*": "8.15.6",
-    "npm:postgres@*": "3.4.5",
-    "npm:postgres@3.4.5": "3.4.5",
+    "npm:pg@^8.15.6": "8.15.6",
     "npm:react-dom@^19.1.0": "19.1.0_react@19.1.0",
     "npm:react-hook-form@^7.56.0": "7.56.1_react@19.1.0",
     "npm:react@^19.1.0": "19.1.0",
@@ -342,12 +341,6 @@
       "dependencies": [
         "@nodelib/fs.scandir",
         "fastq"
-      ]
-    },
-    "@pothos/core@4.6.0_graphql@16.11.0": {
-      "integrity": "sha512-4XoRpPO2EVO2Rr2qKoXmjsllIvhcQQyRYvES5/8AH8ePawtxer1bdWKLW9IBOV3EqrkToqWj+7p3AlcAZ2fFkw==",
-      "dependencies": [
-        "graphql"
       ]
     },
     "@radix-ui/primitive@1.1.2": {
@@ -1119,17 +1112,18 @@
         "path-type"
       ]
     },
-    "drizzle-orm@0.43.1_postgres@3.4.5": {
-      "integrity": "sha512-dUcDaZtE/zN4RV/xqGrVSMpnEczxd5cIaoDeor7Zst9wOe/HzC/7eAaulywWGYXdDEc9oBPMjayVEDg0ziTLJA==",
+    "drizzle-graphql@0.8.5_drizzle-orm@0.43.1__pg@8.15.6_graphql@16.11.0_pg@8.15.6": {
+      "integrity": "sha512-MAqBwmj/kSZWIUQdYCsYtoZWxxVRcXWkhsqt0b6fY1XC171WHBK/jZiVWepO04tDsdaDuTvzlufDHJqNl3VVWQ==",
       "dependencies": [
-        "postgres"
+        "drizzle-orm",
+        "graphql",
+        "graphql-parse-resolve-info"
       ]
     },
-    "drizzle-orm@0.43.1_postgres@3.4.5_pg@8.15.6": {
+    "drizzle-orm@0.43.1_pg@8.15.6": {
       "integrity": "sha512-dUcDaZtE/zN4RV/xqGrVSMpnEczxd5cIaoDeor7Zst9wOe/HzC/7eAaulywWGYXdDEc9oBPMjayVEDg0ziTLJA==",
       "dependencies": [
-        "pg",
-        "postgres"
+        "pg"
       ]
     },
     "enhanced-resolve@5.18.1": {
@@ -1271,6 +1265,14 @@
     },
     "graceful-fs@4.2.11": {
       "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ=="
+    },
+    "graphql-parse-resolve-info@4.14.1_graphql@16.11.0": {
+      "integrity": "sha512-WKHukfEuZamP1ZONR84b8iT+4sJgEhtXMDArm1jpXEsU2vTb5EgkCZ4Obfl+v09oNTKXm0CJjPfBUZ5jcJ2Ykg==",
+      "dependencies": [
+        "debug",
+        "graphql",
+        "tslib"
+      ]
     },
     "graphql@16.11.0": {
       "integrity": "sha512-mS1lbMsxgQj6hge1XZ6p7GPhbrtFwUFYi3wRzXAC/FmYnyXMTvvI3td3rjmQ2u8ewXueaSvRPWaEcgVVOT9Jnw=="
@@ -1521,9 +1523,6 @@
       "dependencies": [
         "xtend"
       ]
-    },
-    "postgres@3.4.5": {
-      "integrity": "sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg=="
     },
     "precinct@12.1.2_postcss@8.5.3_typescript@5.8.3": {
       "integrity": "sha512-x2qVN3oSOp3D05ihCd8XdkIPuEQsyte7PSxzLqiRgktu79S5Dr1I75/S+zAup8/0cwjoiJTQztE9h0/sWp9bJQ==",
@@ -1825,10 +1824,10 @@
       "graphql": {
         "dependencies": [
           "npm:@hono/graphql-server@~0.5.1",
-          "npm:@pothos/core@^4.6.0",
+          "npm:drizzle-graphql@~0.8.5",
           "npm:drizzle-orm@~0.43.1",
           "npm:graphql@^16.11.0",
-          "npm:postgres@3.4.5"
+          "npm:pg@^8.15.6"
         ]
       },
       "supabase/functions/_shared": {
@@ -1840,8 +1839,7 @@
       "supabase/functions/fetchPrefectures": {
         "dependencies": [
           "npm:drizzle-orm@*",
-          "npm:pg@*",
-          "npm:postgres@*"
+          "npm:pg@*"
         ]
       }
     }
