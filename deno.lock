@@ -7,6 +7,8 @@
     "npm:@hono/vite-build@^1.6.0": "1.6.0_hono@4.7.7",
     "npm:@hono/vite-dev-server@0.19": "0.19.0_hono@4.7.7",
     "npm:@hookform/resolvers@^5.0.1": "5.0.1_react-hook-form@7.56.1__react@19.1.0_react@19.1.0",
+    "npm:@pothos/core@^4.6.0": "4.6.0_graphql@16.11.0",
+    "npm:@pothos/plugin-add-graphql@^4.2.2": "4.2.2_@pothos+core@4.6.0__graphql@16.11.0_graphql@16.11.0",
     "npm:@radix-ui/react-dialog@^1.1.11": "1.1.11_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-label@^2.1.4": "2.1.4_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-popover@^1.1.10": "1.1.11_@types+react@19.1.2_@types+react-dom@19.1.2__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -349,6 +351,19 @@
       "dependencies": [
         "@nodelib/fs.scandir",
         "fastq"
+      ]
+    },
+    "@pothos/core@4.6.0_graphql@16.11.0": {
+      "integrity": "sha512-4XoRpPO2EVO2Rr2qKoXmjsllIvhcQQyRYvES5/8AH8ePawtxer1bdWKLW9IBOV3EqrkToqWj+7p3AlcAZ2fFkw==",
+      "dependencies": [
+        "graphql"
+      ]
+    },
+    "@pothos/plugin-add-graphql@4.2.2_@pothos+core@4.6.0__graphql@16.11.0_graphql@16.11.0": {
+      "integrity": "sha512-Rgxmk4cVWXEpO3vztB8FPglVpSJqsfDC6YY7GJ/dbiJ1njDE5Q5FSEfobu28PIaQEaQow9BDhXnRphJ4U0KvwA==",
+      "dependencies": [
+        "@pothos/core",
+        "graphql"
       ]
     },
     "@radix-ui/primitive@1.1.2": {
@@ -1832,6 +1847,8 @@
       "graphql": {
         "dependencies": [
           "npm:@hono/graphql-server@~0.5.1",
+          "npm:@pothos/core@^4.6.0",
+          "npm:@pothos/plugin-add-graphql@^4.2.2",
           "npm:drizzle-graphql@~0.8.5",
           "npm:drizzle-orm@~0.43.1",
           "npm:graphql@^16.11.0",
