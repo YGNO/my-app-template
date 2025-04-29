@@ -5,57 +5,58 @@ import tailwindcss from "@tailwindcss/vite";
 import honox from "honox/vite";
 import { type Connect, defineConfig, type Plugin as VitePlugin } from "vite";
 import { IncomingMessage, ServerResponse } from "node:http";
+import gqlDenoJson from "../graphql/deno.jsonc" with { type: "json" };
 
-// Note: @deno/vite-plugin を利用すると、特定の npm インストールしたモジュールロードのパフォーマンスが劣化するので利用しない。
-//       なので、jsr、http を利用したモジュールのインポートは行わない。
 export default defineConfig(({ mode }) => {
-  const config = {
-    cacheDir: "node_modules/.vite",
-    resolve: {
-      alias: {
-        "@": resolve("./app"),
-        // Note: モノレポのパッケージを vite が認識しないので、直接パスを解決する
-        "@my-app/graphql": resolve("../graphql/mod.ts"),
-      },
-    },
-  };
+  // Note: ビルド時にバンドルしないライブラリ、document、window を直接使っている等で、そのままでは deno で実行できないものが対象
+  const notBundle = ["slickgrid-react", "@slickgrid-universal/common"];
 
-  if (mode === "development") {
-    return {
-      ...config,
-      ssr: {
-        external: [
-          "react",
-          "react-dom",
-          "graphql",
-          "@hono/graphql-server",
-          "drizzle-graphql",
-          "pg",
-        ],
-      },
-      esbuild: {
-        jsx: "automatic",
-        jsxImportSource: "react",
-      },
-      plugins: [
-        changeDenoRequestToNode(),
-        honox({
-          devServer: { adapter },
-          client: { jsxImportSource: "react", input: ["/app/style.css"] },
-        }),
-        tailwindcss(),
-        build(),
-      ],
+  let alias = {
+    "@": resolve("./app"),
+    // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
+    "@my-app/graphql": resolve("../graphql/mod.ts"),
+  };
+  if (mode === "production") {
+    alias = {
+      ...alias,
+      // Note: 本番ビルド時に兄弟パッケージの依存関係が解決できなくなるので、直接パスを記載
+      //       deno の実行オプションで import_map を複数指定できれば解決できるが、現状できないので力技でなんとかする
+      ...gqlDenoJson.imports,
     };
   }
-  throw new Error("本番環境用の設定は後で考える");
+
+  const ssrExternal = ["react", "react-dom"];
+  Object.keys(gqlDenoJson.imports).forEach((module) => {
+    // Note: graphql モジュールの依存関係を SSR 対象から外す
+    ssrExternal.push(module);
+  });
+
+  return {
+    cacheDir: "node_modules/.vite",
+    resolve: { alias },
+    ssr: { external: ssrExternal },
+    esbuild: {
+      jsx: "automatic",
+      jsxImportSource: "react",
+    },
+    // Note: @deno/vite-plugin を利用すると、特定の npm インストールしたモジュールロードのパフォーマンスが劣化するので利用しない。
+    //       この関係上、jsr、http を利用したモジュールのインポートは実施できない、多分。
+    plugins: [
+      changeDenoRequestToNode(),
+      honox({
+        devServer: { adapter },
+        client: { jsxImportSource: "react", input: ["/app/style.css"] },
+      }),
+      tailwindcss(),
+      build({ external: notBundle, staticRoot: "dist" }),
+    ],
+  };
 });
 
-// Deno ランタイムで Node の rawHeaders が <k,v>形式になってしまうので、
-// 文字列配列に変換する用のプラグイン
+// Note: Deno ランタイムで Node の rawHeaders が <k,v>形式になってしまうので、文字列配列に変換する用のプラグインを用意する
 const changeDenoRequestToNode = () => {
   const plugin: VitePlugin = {
-    name: "deno-server",
+    name: "change-deno-to-node",
     configureServer: async (server) => {
       // deno-lint-ignore require-await
       const createMiddleware = async () => {

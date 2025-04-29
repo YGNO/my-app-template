@@ -44,6 +44,6 @@
     "check": "deno fmt --check && deno lint && deno check .",
     "dev": "deno run -A npm:vite",
     "build": "vite build --mode client && vite build",
-    "preview": "deno serve -ER=. dist/index.js"
+    "preview": "deno serve -A dist/index.js"
   }
 }

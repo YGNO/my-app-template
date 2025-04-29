@@ -14,6 +14,8 @@
   "workspace": ["./frontend", "./graphql", "./supabase/functions/*"],
   "tasks": {
     "f:dev": "deno task --cwd=./frontend dev",
+    "f:build": "deno task --cwd=./frontend build",
+    "f:prev": "deno task --cwd=./frontend preview",
     "db:pull": "deno task --cwd=./graphql drizzle-pull"
   }
 }

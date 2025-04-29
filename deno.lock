@@ -1,6 +1,7 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@std/path@1.0.8": "1.0.8",
     "npm:@hono/graphql-server@~0.5.1": "0.5.1_hono@4.7.7",
     "npm:@hono/react-renderer@^1.0.1": "1.0.1_hono@4.7.7_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@hono/vite-build@^1.6.0": "1.6.0_hono@4.7.7",
@@ -38,8 +39,15 @@
     "npm:tailwindcss@^4.1.4": "4.1.4",
     "npm:tw-animate-css@^1.2.7": "1.2.8",
     "npm:vanilla-calendar-pro@^3.0.4": "3.0.4",
+    "npm:vite@*": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
+    "npm:vite@6.3.3": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
     "npm:vite@^6.3.2": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
     "npm:zod@^3.24.3": "3.24.3"
+  },
+  "jsr": {
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    }
   },
   "npm": {
     "@babel/code-frame@7.26.2": {

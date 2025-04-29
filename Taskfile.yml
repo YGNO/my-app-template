@@ -39,3 +39,9 @@ tasks:
     dotenv: [".env.local"]
     cmds:
       - deno task f:dev
+
+  front-prev:
+    dotenv: [".env.preview"]
+    cmds:
+      - deno task f:build
+      - deno task f:prev
