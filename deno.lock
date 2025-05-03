@@ -2,10 +2,10 @@
   "version": "4",
   "specifiers": {
     "jsr:@std/path@1.0.8": "1.0.8",
-    "npm:@hono/graphql-server@~0.5.1": "0.5.1_hono@4.7.7",
-    "npm:@hono/react-renderer@^1.0.1": "1.0.1_hono@4.7.7_react@19.1.0_react-dom@19.1.0__react@19.1.0",
-    "npm:@hono/vite-build@^1.6.0": "1.6.0_hono@4.7.7",
-    "npm:@hono/vite-dev-server@0.19": "0.19.0_hono@4.7.7",
+    "npm:@hono/graphql-server@~0.5.1": "0.5.1_hono@4.7.8",
+    "npm:@hono/react-renderer@^1.0.1": "1.0.1_hono@4.7.8_react@19.1.0_react-dom@19.1.0__react@19.1.0",
+    "npm:@hono/vite-build@^1.6.0": "1.6.0_hono@4.7.8",
+    "npm:@hono/vite-dev-server@0.19": "0.19.0_hono@4.7.8",
     "npm:@hookform/resolvers@^5.0.1": "5.0.1_react-hook-form@7.56.1__react@19.1.0_react@19.1.0",
     "npm:@pothos/core@^4.6.0": "4.6.0_graphql@16.11.0",
     "npm:@pothos/plugin-add-graphql@^4.2.2": "4.2.2_@pothos+core@4.6.0__graphql@16.11.0_graphql@16.11.0",
@@ -28,8 +28,8 @@
     "npm:drizzle-orm@*": "0.43.1_pg@8.15.6",
     "npm:drizzle-orm@~0.43.1": "0.43.1_pg@8.15.6",
     "npm:graphql@^16.11.0": "16.11.0",
-    "npm:hono@^4.7.7": "4.7.7",
-    "npm:honox@~0.1.40": "0.1.40_hono@4.7.7",
+    "npm:hono@^4.7.7": "4.7.8",
+    "npm:honox@~0.1.40": "0.1.40_hono@4.7.8",
     "npm:lucide-react@0.503": "0.503.0_react@19.1.0",
     "npm:pg@*": "8.15.6",
     "npm:pg@^8.15.6": "8.15.6",
@@ -42,7 +42,6 @@
     "npm:tw-animate-css@^1.2.7": "1.2.8",
     "npm:vanilla-calendar-pro@^3.0.4": "3.0.4",
     "npm:vite@*": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
-    "npm:vite@6.3.3": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
     "npm:vite@^6.3.2": "6.3.3_@types+node@22.15.2_picomatch@4.0.2_@types+node@22.12.0",
     "npm:zod@^3.24.3": "3.24.3"
   },
@@ -262,20 +261,20 @@
     "@formkit/tempo@0.1.2": {
       "integrity": "sha512-jNPPbjL8oj7hK3eHX++CwbR6X4GKQt+x00/q4yeXkwynXHGKL27dylYhpEgwrmediPP4y7s0XtN1if/M/JYujg=="
     },
-    "@hono/graphql-server@0.5.1_hono@4.7.7": {
+    "@hono/graphql-server@0.5.1_hono@4.7.8": {
       "integrity": "sha512-gYEHsfvUEz1/GQ614N2jihdTInMRCOCo5mvyf6O0rgt5jfGJ+OrL3KeYLStsEYJQlbpk1UlMD8kAC+2bt5wwJg==",
       "dependencies": [
         "graphql",
         "hono"
       ]
     },
-    "@hono/node-server@1.14.1_hono@4.7.7": {
+    "@hono/node-server@1.14.1_hono@4.7.8": {
       "integrity": "sha512-vmbuM+HPinjWzPe7FFPWMMQMsbKE9gDPhaH0FFdqbGpkT5lp++tcWDTxwBl5EgS5y6JVgIaCdjeHRfQ4XRBRjQ==",
       "dependencies": [
         "hono"
       ]
     },
-    "@hono/react-renderer@1.0.1_hono@4.7.7_react@19.1.0_react-dom@19.1.0__react@19.1.0": {
+    "@hono/react-renderer@1.0.1_hono@4.7.8_react@19.1.0_react-dom@19.1.0__react@19.1.0": {
       "integrity": "sha512-vjQ/70hVrbgsi2O44N7w5sO0v51lRcuXau/4caVzw0A1hje+U2zAnuhiBC3JhX56gGfhGT4kO5B0di4SROx0Lg==",
       "dependencies": [
         "hono",
@@ -283,13 +282,13 @@
         "react-dom"
       ]
     },
-    "@hono/vite-build@1.6.0_hono@4.7.7": {
+    "@hono/vite-build@1.6.0_hono@4.7.8": {
       "integrity": "sha512-7YJHgOVb4MnlTGI4anWTneJqRJ+h7xar6m4iz7Bnjf+QEdR6T6p5M8feqbwyQ89K1jFnGOshBVKdbUw1fPwbew==",
       "dependencies": [
         "hono"
       ]
     },
-    "@hono/vite-dev-server@0.19.0_hono@4.7.7": {
+    "@hono/vite-dev-server@0.19.0_hono@4.7.8": {
       "integrity": "sha512-myMc4Nm0nFQSPaeE6I/a1ODyDR5KpQ4EHodX4Tu/7qlB31GfUemhUH/WsO91HJjDEpRRpsT4Zbg+PleMlpTljw==",
       "dependencies": [
         "@hono/node-server",
@@ -1300,10 +1299,10 @@
     "graphql@16.11.0": {
       "integrity": "sha512-mS1lbMsxgQj6hge1XZ6p7GPhbrtFwUFYi3wRzXAC/FmYnyXMTvvI3td3rjmQ2u8ewXueaSvRPWaEcgVVOT9Jnw=="
     },
-    "hono@4.7.7": {
-      "integrity": "sha512-2PCpQRbN87Crty8/L/7akZN3UyZIAopSoRxCwRbJgUuV1+MHNFHzYFxZTg4v/03cXUm+jce/qa2VSBZpKBm3Qw=="
+    "hono@4.7.8": {
+      "integrity": "sha512-PCibtFdxa7/Ldud9yddl1G81GjYaeMYYTq4ywSaNsYbB1Lug4mwtOMJf2WXykL0pntYwmpRJeOI3NmoDgD+Jxw=="
     },
-    "honox@0.1.40_hono@4.7.7": {
+    "honox@0.1.40_hono@4.7.8": {
       "integrity": "sha512-yXxx/jHcPPJMxw5VzyaSRgl9Dxlw4sIyzbqb5vcQG8ijpvttxoHT51zombgsIID/oOa2UEHaHOfu8HI+Tgjvww==",
       "dependencies": [
         "@babel/generator",
