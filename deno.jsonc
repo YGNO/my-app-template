@@ -11,11 +11,17 @@
     "vite": "npm:vite@^6.3.2"
   },
   "nodeModulesDir": "auto",
-  "workspace": ["./frontend", "./graphql", "./supabase/functions/*"],
+  "workspace": [
+    "./frontend",
+    "./graphql/client",
+    "./graphql/server",
+    "./supabase/functions/*"
+  ],
   "tasks": {
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
     "f:prev": "deno task --cwd=./frontend preview",
-    "db:pull": "deno task --cwd=./graphql drizzle-pull"
+    "db:pull": "deno task --cwd=./graphql/server drizzle-pull",
+    "gen:client": "deno task --cwd=./graphql/client gen:client"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "@my-app/graphql-client",
+  "exports": {
+    ".": "./generated/index.ts"
+  },
+  "imports": {
+    "@genql/cli": "npm:@genql/cli@^6.3.3",
+    "@std/path": "jsr:@std/path@^1.0.9"
+  },
+  "tasks": {
+    "gen:client": "deno run -A genGraphqlClient.ts"
+  }
+}

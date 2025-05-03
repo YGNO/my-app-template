@@ -1,4 +1,5 @@
 import { buildSchema } from "drizzle-graphql";
+import { printSchema } from "graphql";
 import AddGraphQLPlugin from "@pothos/plugin-add-graphql";
 import SchemaBuilder from "@pothos/core";
 import { drizzleClient } from "./drizzle/drizzleClient.ts";
@@ -79,3 +80,5 @@ builder.objectField(PrefectureItem, "municipalities", (t) =>
 const graphqlSchema = builder.toSchema();
 
 export default graphqlSchema;
+
+export const graphqlSchemaString = printSchema(graphqlSchema);

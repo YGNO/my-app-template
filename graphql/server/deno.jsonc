@@ -1,5 +1,5 @@
 {
-  "name": "@my-app/graphql",
+  "name": "@my-app/graphql-server",
   "exports": {
     ".": "./mod.ts"
   },

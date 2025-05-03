@@ -1,0 +1,22 @@
+type MunicipalityItem {
+  code: Int!
+  name: String!
+  nameAlpha: String!
+  nameKana: String!
+  prefectureCode: Int!
+}
+
+type PrefectureItem {
+  code: Int!
+  municipalities: [MunicipalityItem!]
+  name: String!
+  nameAlpha: String!
+  nameKana: String!
+}
+
+type Query {
+  municipalites: [MunicipalityItem!]
+  municipality(code: Int!): MunicipalityItem
+  prefecture(code: Int!): PrefectureItem
+  prefectures: [PrefectureItem!]
+}

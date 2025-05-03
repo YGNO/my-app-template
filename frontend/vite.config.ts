@@ -4,7 +4,7 @@ import adapter from "@hono/vite-dev-server/node";
 import tailwindcss from "@tailwindcss/vite";
 import honox from "honox/vite";
 import { defineConfig } from "vite";
-import gqlDenoJson from "../graphql/deno.jsonc" with { type: "json" };
+import gqlDenoJson from "../graphql/server/deno.jsonc" with { type: "json" };
 
 export default defineConfig(({ mode }) => {
   // Note: ビルド時にバンドルしないライブラリ、document、window を直接使っている等で、そのままでは deno で実行できないものが対象
@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => {
   let alias = {
     "@": resolve("./app"),
     // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
-    "@my-app/graphql": resolve("../graphql/mod.ts"),
+    "@my-app/graphql-server": resolve("../graphql/server/mod.ts"),
+    "@my-app/graphql-client": resolve("../graphql/client/generated/index.ts"),
   };
   if (mode === "production") {
     alias = {
