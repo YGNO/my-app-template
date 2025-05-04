@@ -7,6 +7,6 @@ import * as dbRelations from "./__generated__/relations.ts";
 // see: https://github.com/orgs/supabase/discussions/21789
 const connectionString = Deno.env.get("SUPABASE_DB_URL")!;
 const pool = new Pool({ connectionString });
-const dbclient = drizzle({ client: pool, schema: dbSchema });
+const dbClient = drizzle({ client: pool, schema: dbSchema });
 
-export { dbclient, dbRelations, dbSchema };
+export { dbClient, dbRelations, dbSchema };
