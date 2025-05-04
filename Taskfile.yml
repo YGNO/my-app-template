@@ -1,8 +1,5 @@
 version: "3"
 
-vars:
-  GREETING: Hello, World!
-
 tasks:
   sb-up:
     cmds:
@@ -19,11 +16,6 @@ tasks:
   sb-migration-up:
     cmds:
       - npx supabase migration up {{.CLI_ARGS}}
-
-  sb-pull:
-    dotenv: [".env.local"]
-    cmds:
-      - deno task db:pull
 
   sb-link:
     dotenv: [".env.dev"]
@@ -45,3 +37,8 @@ tasks:
     cmds:
       - deno task f:build
       - deno task f:prev
+
+  db-schema:
+    dotenv: [".env.local"]
+    cmds:
+      - deno task db:schema

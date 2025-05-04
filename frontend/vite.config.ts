@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import honox from "honox/vite";
 import { defineConfig } from "vite";
 import gqlDenoJson from "../graphql/server/deno.jsonc" with { type: "json" };
+import dbClientDenoJson from "../dbClient/deno.jsonc" with { type: "json" };
 
 export default defineConfig(({ mode }) => {
   // Note: ビルド時にバンドルしないライブラリ、document、window を直接使っている等で、そのままでは deno で実行できないものが対象
@@ -13,6 +14,7 @@ export default defineConfig(({ mode }) => {
   let alias = {
     "@": resolve("./app"),
     // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
+    "@my-app/db-client": resolve("../dbClient/mod.ts"),
     "@my-app/graphql-server": resolve("../graphql/server/mod.ts"),
     "@my-app/graphql-client": resolve("../graphql/client/__generated__/index.ts"),
   };
@@ -22,12 +24,16 @@ export default defineConfig(({ mode }) => {
       // Note: 本番ビルド時に兄弟パッケージの依存関係が解決できなくなるので、直接パスを記載
       //       deno の実行オプションで import_map を複数指定できれば解決できるが、現状できないので力技でなんとかする
       ...gqlDenoJson.imports,
+      ...dbClientDenoJson.imports,
     };
   }
 
   const ssrExternal = ["react", "react-dom"];
-  Object.keys(gqlDenoJson.imports).forEach((module) => {
-    // Note: graphql モジュールの依存関係を SSR 対象から外す
+  Object.keys({
+    // Note: graphql、dbClient モジュールの依存関係を SSR 対象から外す
+    ...gqlDenoJson.imports,
+    ...dbClientDenoJson.imports,
+  }).forEach((module) => {
     ssrExternal.push(module);
   });
 

@@ -9,10 +9,6 @@
     "@pothos/plugin-add-graphql": "npm:@pothos/plugin-add-graphql@^4.2.2",
     "drizzle-orm": "npm:drizzle-orm@^0.43.1",
     "drizzle-graphql": "npm:drizzle-graphql@^0.8.5",
-    "graphql": "npm:graphql@^16.11.0",
-    "pg": "npm:pg@^8.15.6"
-  },
-  "tasks": {
-    "drizzle-pull": "deno run -A npm:drizzle-kit pull --out=./src/drizzle --dialect=postgresql --url=$SUPABASE_DB_URL"
+    "graphql": "npm:graphql@^16.11.0"
   }
 }

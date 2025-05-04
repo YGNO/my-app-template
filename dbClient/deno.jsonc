@@ -1,0 +1,14 @@
+{
+  "name": "@my-app/db-client",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "imports": {
+    "drizzle-orm": "npm:drizzle-orm@^0.43.1",
+    "drizzle-graphql": "npm:drizzle-graphql@^0.8.5",
+    "pg": "npm:pg@^8.15.6"
+  },
+  "tasks": {
+    "db:schema": "deno run -A npm:drizzle-kit pull --out=./src/__generated__ --dialect=postgresql --url=$SUPABASE_DB_URL"
+  }
+}

@@ -13,6 +13,7 @@
   "nodeModulesDir": "auto",
   "workspace": [
     "./frontend",
+    "./dbClient",
     "./graphql/client",
     "./graphql/server",
     "./supabase/functions/*"
@@ -32,6 +33,7 @@
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
     "f:prev": "deno task --cwd=./frontend preview",
+    "db:schema": "deno task --cwd=./dbClient db:schema",
     "db:pull": "deno task --cwd=./graphql/server drizzle-pull",
     "gen:client": "deno task --cwd=./graphql/client gen:client"
   }
