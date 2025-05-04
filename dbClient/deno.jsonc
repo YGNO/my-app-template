@@ -1,7 +1,7 @@
 {
   "name": "@my-app/db-client",
   "exports": {
-    ".": "./mod.ts"
+    ".": "./src/dbClient.ts"
   },
   "imports": {
     "drizzle-orm": "npm:drizzle-orm@^0.43.1",
@@ -9,6 +9,7 @@
     "pg": "npm:pg@^8.15.6"
   },
   "tasks": {
-    "db:schema": "deno run -A npm:drizzle-kit pull --out=./src/__generated__ --dialect=postgresql --url=$SUPABASE_DB_URL"
+    "db:schema": "deno run -A npm:drizzle-kit pull --out=./src/__generated__ --dialect=postgresql --url=$SUPABASE_DB_URL",
+    "cp:supabase": "deno run -A copy_dir_contents.ts ./src ../supabase/functions/_shared/dbClient"
   }
 }

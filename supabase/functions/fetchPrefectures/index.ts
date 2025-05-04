@@ -1,9 +1,8 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { prefecture } from "../_shared/schema.ts";
-import { drizzleClient } from "../_shared/drizzleClient.ts";
+import { dbclient, dbSchema } from "../_shared/dbClient/dbClient.ts";
 
 Deno.serve(async () => {
-  const prefectures = await drizzleClient.select().from(prefecture);
+  const prefectures = await dbclient.select().from(dbSchema.prefecture);
   return new Response(
     JSON.stringify(prefectures),
   );

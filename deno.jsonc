@@ -33,8 +33,7 @@
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
     "f:prev": "deno task --cwd=./frontend preview",
-    "db:schema": "deno task --cwd=./dbClient db:schema",
-    "db:pull": "deno task --cwd=./graphql/server drizzle-pull",
-    "gen:client": "deno task --cwd=./graphql/client gen:client"
+    "db:client": "deno task --cwd=./dbClient db:schema && deno task --cwd=./dbClient cp:supabase",
+    "gql:client": "deno task --cwd=./graphql/client gql:client"
   }
 }

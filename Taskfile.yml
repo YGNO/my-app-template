@@ -38,7 +38,11 @@ tasks:
       - deno task f:build
       - deno task f:prev
 
-  db-schema:
+  db-client:
     dotenv: [".env.local"]
     cmds:
-      - deno task db:schema
+      - deno task db:client
+
+  gql-client:
+    cmds:
+      - deno task gql:client

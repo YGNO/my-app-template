@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
   let alias = {
     "@": resolve("./app"),
     // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
-    "@my-app/db-client": resolve("../dbClient/mod.ts"),
+    "@my-app/db-client": resolve("../dbClient/src/dbClient.ts"),
     "@my-app/graphql-server": resolve("../graphql/server/mod.ts"),
     "@my-app/graphql-client": resolve("../graphql/client/__generated__/index.ts"),
   };

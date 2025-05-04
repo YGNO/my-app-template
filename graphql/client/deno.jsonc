@@ -8,6 +8,6 @@
     "@std/path": "jsr:@std/path@^1.0.9"
   },
   "tasks": {
-    "gen:client": "deno run -A genGraphqlClient.ts"
+    "gql:client": "deno run -A genGraphqlClient.ts"
   }
 }
