@@ -8,6 +8,7 @@
     "@types/react-dom": "npm:@types/react-dom@^19.1.2",
     "hono": "npm:hono@^4.7.7",
     "honox": "npm:honox@^0.1.40",
+    "regenerator-runtime": "npm:regenerator-runtime@^0.14.1",
     "vite": "npm:vite@^6.3.2"
   },
   "nodeModulesDir": "auto",
