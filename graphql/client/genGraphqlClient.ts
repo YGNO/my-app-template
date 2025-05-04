@@ -4,7 +4,7 @@ import * as path from "@std/path";
 
 generate({
   schema: graphqlSchemaString,
-  output: path.join(Deno.cwd(), "generated"),
+  output: path.join(Deno.cwd(), "__generated__"),
   scalarTypes: {
     MongoID: "string",
   },

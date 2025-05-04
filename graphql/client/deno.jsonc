@@ -1,7 +1,7 @@
 {
   "name": "@my-app/graphql-client",
   "exports": {
-    ".": "./generated/index.ts"
+    ".": "./__generated__/index.ts"
   },
   "imports": {
     "@genql/cli": "npm:@genql/cli@^6.3.3",

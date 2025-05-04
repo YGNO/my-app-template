@@ -17,6 +17,17 @@
     "./graphql/server",
     "./supabase/functions/*"
   ],
+  "lint": {
+    "include": ["./**/*.(ts|tsx)"],
+    "exclude": ["**/node_modules/**/*.*", "**/dist/**/*.*", "**/__generated__/**/*.ts"]
+  },
+  "fmt": {
+    "include": ["./**/*.(ts|tsx|json|jsonc)"],
+    "exclude": ["**/node_modules/**/*.*", "**/dist/**/*.*", "**/__generated__/**/*.ts"],
+    "useTabs": false,
+    "lineWidth": 120,
+    "indentWidth": 2
+  },
   "tasks": {
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
