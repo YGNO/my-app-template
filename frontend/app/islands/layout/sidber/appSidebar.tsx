@@ -1,5 +1,4 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -8,7 +7,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
-} from "@/components/shadcn/sidebar.tsx";
+} from "@my-app/shadcn";
 import { AppSidebarTrigger } from "./appSidebarTrigger.tsx";
 import { AppSidebarMenuButton } from "@/islands/layout/sidber/appSidebarMenuButton.tsx";
 

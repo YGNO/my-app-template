@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
   let alias = {
     "@": resolve("./app"),
     // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
+    "@my-app/shadcn": resolve("../shadcn/mod.ts"),
     "@my-app/db-client": resolve("../dbClient/src/dbClient.ts"),
     "@my-app/graphql-server": resolve("../graphql/server/mod.ts"),
     "@my-app/graphql-client": resolve("../graphql/client/__generated__/index.ts"),
@@ -29,18 +30,19 @@ export default defineConfig(({ mode }) => {
   }
 
   const ssrExternal = ["react", "react-dom"];
-  Object.keys({
-    // Note: graphql、dbClient モジュールの依存関係を SSR 対象から外す
+  // Note: graphql、dbClient モジュールの依存関係を SSR 対象から外す
+  const moduleList = Object.keys({
     ...gqlDenoJson.imports,
     ...dbClientDenoJson.imports,
-  }).forEach((module) => {
-    ssrExternal.push(module);
   });
+  for (const module of moduleList) {
+    ssrExternal.push(module);
+  }
 
   return {
     cacheDir: "node_modules/.vite",
     resolve: { alias },
-    ssr: { external: ssrExternal },
+    ssr: { external: ssrExternal, noExternal: ["@my-app/shadcn-ui"] },
     esbuild: {
       jsx: "automatic",
       jsxImportSource: "react",

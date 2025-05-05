@@ -1,7 +1,6 @@
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
-import { useSidebar } from "@/components/shadcn/sidebar.tsx";
-import { cn } from "@/components/shadcn/utils.ts";
+import { cn, useSidebar } from "@my-app/shadcn";
 
 export function AppSidebarTrigger() {
   const { open, toggleSidebar } = useSidebar();
@@ -18,9 +17,7 @@ export function AppSidebarTrigger() {
           className="w-6 h-6 inline"
           onClick={toggleSidebar}
         >
-          {open
-            ? <ChevronsLeft className="w-6 h-6" />
-            : <ChevronsRight className="w-6 h-6" />}
+          {open ? <ChevronsLeft className="w-6 h-6" /> : <ChevronsRight className="w-6 h-6" />}
         </div>
       </div>
     </div>

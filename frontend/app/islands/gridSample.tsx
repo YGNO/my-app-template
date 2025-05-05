@@ -2,7 +2,7 @@ import { Column, GridOption } from "@slickgrid-universal/common";
 import { useEffect, useRef, useState } from "react";
 import Grid, { GridHandle } from "@/components/grid/grid.tsx";
 import Formatters from "@/components/grid/formatter.ts";
-import { Button } from "@/components/shadcn/button.tsx";
+import { Button } from "@my-app/shadcn";
 
 const NB_ITEMS = 995;
 

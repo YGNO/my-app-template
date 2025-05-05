@@ -1,0 +1,21 @@
+{
+  "name": "@my-app/shadcn",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+      "dom",
+      "deno.ns",
+      "deno.unstable"
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "jsxImportSourceTypes": "@types/react",
+    "noUncheckedIndexedAccess": true
+  },
+  "tasks": {
+    "add:shadcn": "deno run -A add-shadcn.ts"
+  }
+}

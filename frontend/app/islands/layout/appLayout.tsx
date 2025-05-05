@@ -1,7 +1,4 @@
-import {
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/shadcn/sidebar.tsx";
+import { SidebarProvider, SidebarTrigger } from "@my-app/shadcn";
 import { AppSidebar } from "@/islands/layout/sidber/appSidebar.tsx";
 
 export default function AppLayout(

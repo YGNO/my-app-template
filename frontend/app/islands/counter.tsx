@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/shadcn/button.tsx";
+import { Button } from "@my-app/shadcn";
 import { createClient } from "@my-app/graphql-client";
 
 export default function Counter() {

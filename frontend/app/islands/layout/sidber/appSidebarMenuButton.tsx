@@ -1,5 +1,4 @@
-import { SidebarMenuButton, useSidebar } from "@/components/shadcn/sidebar.tsx";
-import { cn } from "@/components/shadcn/utils.ts";
+import { cn, SidebarMenuButton, useSidebar } from "@my-app/shadcn";
 
 type Props = {
   title: string;
