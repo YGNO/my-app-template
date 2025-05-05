@@ -20,5 +20,6 @@
       }
     }
   },
-  "javascript": { "formatter": { "quoteStyle": "double" } }
+  "javascript": { "formatter": { "quoteStyle": "double" } },
+  "css": { "formatter": { "enabled": true } }
 }

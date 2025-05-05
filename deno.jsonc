@@ -26,6 +26,7 @@
     "f:prev": "deno task --cwd=./frontend preview",
     "db:client": "deno task --cwd=./dbClient db:schema && deno task --cwd=./dbClient cp:supabase",
     "gql:client": "deno task --cwd=./graphql/client gql:client",
-    "add:shadcn": "deno task --cwd=./shadcnUi add:shadcn"
+    "add:shadcn": "deno task --cwd=./shadcnUi add:shadcn",
+    "fmt": "deno run -A npm:@biomejs/biome format --write ."
   }
 }
