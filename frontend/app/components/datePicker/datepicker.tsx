@@ -10,11 +10,7 @@ interface DatePickerProps extends React.ComponentProps<"input"> {
   disableToday?: boolean;
 }
 
-function DatePiker({
-  disableDatesPast,
-  disableToday,
-  ...attributes
-}: DatePickerProps) {
+function DatePiker({ disableDatesPast, disableToday, ...attributes }: DatePickerProps) {
   const ref = useRef(null);
   const [calendar, setCalendar] = useState<Calendar | null>(null);
   const [value, setValue] = useState<string>(attributes.value ?? "");

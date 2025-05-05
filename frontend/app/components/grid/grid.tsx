@@ -1,12 +1,4 @@
-import {
-  forwardRef,
-  ForwardRefRenderFunction,
-  lazy,
-  Suspense,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import { forwardRef, ForwardRefRenderFunction, lazy, Suspense, useEffect, useImperativeHandle, useState } from "react";
 import { Column, GridOption, SlickgridReactInstance } from "slickgrid-react";
 
 const SlickgridReact = lazy(async () => {
@@ -27,16 +19,11 @@ export interface GridHandle {
   getGridInstance: () => SlickgridReactInstance | undefined;
 }
 
-interface ForwardGridRefFunction<DATA = unknown>
-  extends ForwardRefRenderFunction<GridHandle, GridProps<DATA>> {
-}
+interface ForwardGridRefFunction<DATA = unknown> extends ForwardRefRenderFunction<GridHandle, GridProps<DATA>> {}
 
 const loading = <div>Loading</div>;
 
-const Grid: ForwardGridRefFunction = (
-  { id, column, options, data },
-  ref,
-) => {
+const Grid: ForwardGridRefFunction = ({ id, column, options, data }, ref) => {
   const [mounded, setMounded] = useState(false);
   const [gridInstance, setGridInstance] = useState<SlickgridReactInstance>();
   useEffect(() => {

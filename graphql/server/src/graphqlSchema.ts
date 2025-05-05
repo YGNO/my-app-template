@@ -10,13 +10,13 @@ import { eq } from "drizzle-orm";
 const { entities } = buildSchema(dbClient);
 const builder = new SchemaBuilder({ plugins: [AddGraphQLPlugin] });
 
-const PrefectureItem = builder.addGraphQLObject<
-  typeof dbSchema.prefecture._.inferSelect
->(entities.types.PrefectureItem);
+const PrefectureItem = builder.addGraphQLObject<typeof dbSchema.prefecture._.inferSelect>(
+  entities.types.PrefectureItem,
+);
 
-const Municipality = builder.addGraphQLObject<
-  typeof dbSchema.municipality._.inferSelect
->(entities.types.MunicipalityItem);
+const Municipality = builder.addGraphQLObject<typeof dbSchema.municipality._.inferSelect>(
+  entities.types.MunicipalityItem,
+);
 
 builder.queryType({
   fields: (t) => ({
@@ -33,10 +33,7 @@ builder.queryType({
         code: t.arg.int({ required: true }),
       },
       resolve: async (_, { code }) => {
-        const [pref] = await dbClient.select().from(dbSchema.prefecture)
-          .where(
-            eq(dbSchema.prefecture.code, code),
-          );
+        const [pref] = await dbClient.select().from(dbSchema.prefecture).where(eq(dbSchema.prefecture.code, code));
         return pref || null;
       },
     }),
@@ -53,10 +50,7 @@ builder.queryType({
         code: t.arg.int({ required: true }),
       },
       resolve: async (_, { code }) => {
-        const [pref] = await dbClient.select().from(dbSchema.municipality)
-          .where(
-            eq(dbSchema.municipality.code, code),
-          );
+        const [pref] = await dbClient.select().from(dbSchema.municipality).where(eq(dbSchema.municipality.code, code));
         return pref || null;
       },
     }),
@@ -74,7 +68,8 @@ builder.objectField(PrefectureItem, "municipalities", (t) =>
         .from(dbSchema.municipality)
         .where(eq(dbSchema.municipality.prefectureCode, parent.code));
     },
-  }));
+  }),
+);
 
 const graphqlSchema = builder.toSchema();
 

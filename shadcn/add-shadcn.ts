@@ -2,10 +2,8 @@ import { join } from "https://deno.land/std@0.224.0/path/mod.ts";
 
 // shadcn のコンポーネントを取得
 const args = Deno.args;
-const cmd = ["npx", "shadcn@latest", "add", "-o", ...args];
-
-const process = new Deno.Command(cmd[0], {
-  args: cmd.slice(1),
+const process = new Deno.Command("npx", {
+  args: ["shadcn@latest", "add", "-o", ...args],
   stdout: "inherit",
   stderr: "inherit",
 }).spawn();
@@ -28,10 +26,7 @@ const replacePath = async (targetPath: string) => {
         continue;
       }
 
-      if (
-        entry.isFile &&
-        (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx"))
-      ) {
+      if (entry.isFile && (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx"))) {
         const content = await Deno.readTextFile(path);
         const updated = content.replace(/__generated__/g, "..");
 

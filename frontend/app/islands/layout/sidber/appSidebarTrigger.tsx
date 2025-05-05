@@ -12,11 +12,7 @@ export function AppSidebarTrigger() {
           open ? "right-0 translate-x-0" : "left-1/2 -translate-x-1/2",
         )}
       >
-        <div
-          role="button"
-          className="w-6 h-6 inline"
-          onClick={toggleSidebar}
-        >
+        <div role="button" className="w-6 h-6 inline" onClick={toggleSidebar}>
           {open ? <ChevronsLeft className="w-6 h-6" /> : <ChevronsRight className="w-6 h-6" />}
         </div>
       </div>

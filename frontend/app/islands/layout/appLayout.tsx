@@ -1,9 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from "@my-app/shadcn";
 import { AppSidebar } from "@/islands/layout/sidber/appSidebar.tsx";
 
-export default function AppLayout(
-  { children }: { children: React.ReactNode },
-) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider
       style={{

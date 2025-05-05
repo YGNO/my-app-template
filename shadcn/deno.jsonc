@@ -4,12 +4,7 @@
     ".": "./mod.ts"
   },
   "compilerOptions": {
-    "lib": [
-      "esnext",
-      "dom",
-      "deno.ns",
-      "deno.unstable"
-    ],
+    "lib": ["esnext", "dom", "deno.ns", "deno.unstable"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "jsxImportSourceTypes": "@types/react",

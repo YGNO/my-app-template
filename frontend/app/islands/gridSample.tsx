@@ -146,19 +146,11 @@ const GridSample: React.FC = () => {
             data-test="toggle-subtitle"
             onClick={() => setHideSubTitle(!hideSubTitle)}
           >
-            <span
-              className="mdi mdi-information-outline"
-              title="Toggle example sub-title details"
-            >
-            </span>
+            <span className="mdi mdi-information-outline" title="Toggle example sub-title details"></span>
           </button>
         </h2>
 
-        {hideSubTitle ? null : (
-          <div className="subtitle">
-            Simple Grids with Fixed Sizes (800 x 225)
-          </div>
-        )}
+        {hideSubTitle ? null : <div className="subtitle">Simple Grids with Fixed Sizes (800 x 225)</div>}
 
         <h3>
           <div className="column">
@@ -175,13 +167,7 @@ const GridSample: React.FC = () => {
         </h3>
 
         <div className="grid-container1">
-          <Grid
-            id="grid-sample1"
-            column={columnDefinitions}
-            options={gridOptions1}
-            data={dataset1}
-            ref={gridRef}
-          />
+          <Grid id="grid-sample1" column={columnDefinitions} options={gridOptions1} data={dataset1} ref={gridRef} />
         </div>
 
         <hr />
@@ -189,12 +175,7 @@ const GridSample: React.FC = () => {
         <h3>
           Grid 2 <small>(with local Pagination)</small>
         </h3>
-        <Grid
-          id="grid-sample2"
-          column={columnDefinitions}
-          options={gridOptions2}
-          data={dataset2}
-        />
+        <Grid id="grid-sample2" column={columnDefinitions} options={gridOptions2} data={dataset2} />
       </div>
     </>
   );

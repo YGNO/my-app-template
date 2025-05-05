@@ -13,28 +13,19 @@
   },
   "nodeModulesDir": "auto",
   "workspace": [
+    "./shadcn",
     "./frontend",
     "./dbClient",
     "./graphql/client",
     "./graphql/server",
     "./supabase/functions/*"
   ],
-  "lint": {
-    "include": ["./**/*.(ts|tsx)"],
-    "exclude": ["**/node_modules/**/*.*", "**/dist/**/*.*", "**/__generated__/**/*.ts"]
-  },
-  "fmt": {
-    "include": ["./**/*.(ts|tsx|json|jsonc)"],
-    "exclude": ["**/node_modules/**/*.*", "**/dist/**/*.*", "**/__generated__/**/*.ts"],
-    "useTabs": false,
-    "lineWidth": 120,
-    "indentWidth": 2
-  },
   "tasks": {
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
     "f:prev": "deno task --cwd=./frontend preview",
     "db:client": "deno task --cwd=./dbClient db:schema && deno task --cwd=./dbClient cp:supabase",
-    "gql:client": "deno task --cwd=./graphql/client gql:client"
+    "gql:client": "deno task --cwd=./graphql/client gql:client",
+    "add:shadcn": "deno task --cwd=./shadcnUi add:shadcn"
   }
 }

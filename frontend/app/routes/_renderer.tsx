@@ -10,9 +10,7 @@ export default reactRenderer(({ children }) => {
         <Script src="/app/client.ts" async />
         <Link rel="stylesheet" href="/app/style.css" />
       </head>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 });

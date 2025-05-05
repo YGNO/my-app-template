@@ -20,12 +20,10 @@ export default function Counter() {
   }, [count]);
   return (
     <div>
-      <p className="py-2 text-2xl">{count}:{prefecture ?? ""}</p>
-      <Button
-        onClick={() => setCount(count + 1)}
-      >
-        Increment
-      </Button>
+      <p className="py-2 text-2xl">
+        {count}:{prefecture ?? ""}
+      </p>
+      <Button onClick={() => setCount(count + 1)}>Increment</Button>
     </div>
   );
 }
