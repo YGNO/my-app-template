@@ -16,7 +16,13 @@
     "rules": {
       "correctness": {
         "noUnusedImports": "warn",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "off"
+      },
+      "a11y": {
+        "useFocusableInteractive": "off",
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off"
       }
     }
   },

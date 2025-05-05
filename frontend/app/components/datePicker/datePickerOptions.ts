@@ -1,4 +1,4 @@
-import { Calendar } from "vanilla-calendar-pro";
+import type { Calendar } from "vanilla-calendar-pro";
 
 export const styles = {
   calendar: "vc datpicker-calendar",

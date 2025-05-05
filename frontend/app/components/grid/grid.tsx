@@ -1,5 +1,13 @@
-import { forwardRef, ForwardRefRenderFunction, lazy, Suspense, useEffect, useImperativeHandle, useState } from "react";
-import { Column, GridOption, SlickgridReactInstance } from "slickgrid-react";
+import {
+  type ForwardRefRenderFunction,
+  Suspense,
+  forwardRef,
+  lazy,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import type { Column, GridOption, SlickgridReactInstance } from "slickgrid-react";
 
 const SlickgridReact = lazy(async () => {
   const { SlickgridReact } = await import("slickgrid-react");

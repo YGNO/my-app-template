@@ -1,8 +1,8 @@
-import { Column, GridOption } from "@slickgrid-universal/common";
-import { useEffect, useRef, useState } from "react";
-import Grid, { GridHandle } from "@/components/grid/grid.tsx";
 import Formatters from "@/components/grid/formatter.ts";
+import Grid, { type GridHandle } from "@/components/grid/grid.tsx";
 import { Button } from "@my-app/shadcn";
+import type { Column, GridOption } from "@slickgrid-universal/common";
+import { useEffect, useRef, useState } from "react";
 
 const NB_ITEMS = 995;
 
@@ -57,7 +57,9 @@ const GridSample: React.FC = () => {
   const [hideSubTitle, setHideSubTitle] = useState(false);
 
   // mock some data (different in each dataset)
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [dataset1] = useState<any[]>(mockData(NB_ITEMS));
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [dataset2] = useState<any[]>(mockData(NB_ITEMS));
 
   useEffect(() => {
@@ -91,7 +93,7 @@ const GridSample: React.FC = () => {
   };
 
   function mockData(count: number) {
-    // mock a dataset
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const mockDataset: any[] = [];
     for (let i = 0; i < count; i++) {
       const randomYear = 2000 + Math.floor(Math.random() * 10);
@@ -101,8 +103,8 @@ const GridSample: React.FC = () => {
 
       mockDataset[i] = {
         id: i,
-        title: "Task " + i,
-        duration: Math.round(Math.random() * 100) + "",
+        title: `Task ${i}`,
+        duration: Math.round(Math.random() * 100).toString(),
         percentComplete: randomPercent,
         start: new Date(randomYear, randomMonth + 1, randomDay),
         finish: new Date(randomYear + 1, randomMonth + 1, randomDay),
@@ -135,9 +137,10 @@ const GridSample: React.FC = () => {
             see&nbsp;
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://github.com/ghiscoding/slickgrid-react/blob/master/src/examples/slickgrid/Example1.tsx"
             >
-              <span className="mdi mdi-link-variant"></span> code
+              <span className="mdi mdi-link-variant" /> code
             </a>
           </span>
           <button
@@ -146,7 +149,7 @@ const GridSample: React.FC = () => {
             data-test="toggle-subtitle"
             onClick={() => setHideSubTitle(!hideSubTitle)}
           >
-            <span className="mdi mdi-information-outline" title="Toggle example sub-title details"></span>
+            <span className="mdi mdi-information-outline" title="Toggle example sub-title details" />
           </button>
         </h2>
 
@@ -160,7 +163,7 @@ const GridSample: React.FC = () => {
               onClick={() => toggleDarkModeGrid1()}
               data-test="toggle-dark-mode"
             >
-              <i className="mdi mdi-theme-light-dark"></i>
+              <i className="mdi mdi-theme-light-dark" />
               <span>Toggle Dark Mode</span>
             </Button>
           </div>

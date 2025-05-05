@@ -2,6 +2,7 @@
   "imports": {
     "drizzle-orm": "npm:/drizzle-orm",
     "drizzle-orm/": "npm:/drizzle-orm/",
-    "pg": "npm:pg"
+    "pg": "npm:pg",
+    "@types/pg": "npm:@types/pg"
   }
 }

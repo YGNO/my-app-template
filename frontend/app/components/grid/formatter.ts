@@ -1,4 +1,4 @@
-import { Formatter, Formatters } from "@slickgrid-universal/common";
+import { type Formatter, Formatters } from "@slickgrid-universal/common";
 
 /** Provides a list of different Formatters that will change the cell value displayed in the UI */
 interface FormattersDef {

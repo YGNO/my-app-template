@@ -1,7 +1,7 @@
+import { Input } from "@my-app/shadcn";
 import { useEffect, useRef, useState } from "react";
 import { Calendar } from "vanilla-calendar-pro";
 import { getDateString } from "vanilla-calendar-pro/utils";
-import { Input } from "@my-app/shadcn";
 import { getLayout, locale, styles } from "./datePickerOptions.ts";
 
 interface DatePickerProps extends React.ComponentProps<"input"> {
@@ -30,7 +30,11 @@ function DatePiker({ disableDatesPast, disableToday, ...attributes }: DatePicker
       selectedDates: [value !== "" ? new Date(value) : new Date()],
       positionToInput: "auto",
       onClickDate(self) {
-        const newDate = new Date(self.context.selectedDates[0]!);
+        const selectedDate = self.context.selectedDates[0];
+        if (!selectedDate) {
+          throw new Error("invalid selectedDate.");
+        }
+        const newDate = new Date(selectedDate);
         self.selectedDates = self.context.selectedDates;
         self.update();
         setValue(getDateString(newDate));
