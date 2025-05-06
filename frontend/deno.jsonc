@@ -14,6 +14,7 @@
     "@hookform/resolvers": "npm:@hookform/resolvers@^5.0.1",
     "@slickgrid-universal/common": "npm:@slickgrid-universal/common@^5.13.4",
     "@supabase/ssr": "npm:@supabase/ssr@^0.6.1",
+    "@supabase/auth-js": "npm:@supabase/auth-js@^2.69.1",
     "date-fns": "npm:date-fns@^4.1.0",
     "slickgrid-react": "npm:slickgrid-react@^5.13.4",
     "vanilla-calendar-pro": "npm:vanilla-calendar-pro@^3.0.4",

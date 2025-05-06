@@ -4,8 +4,8 @@ import adapter from "@hono/vite-dev-server/node";
 import tailwindcss from "@tailwindcss/vite";
 import honox from "honox/vite";
 import { defineConfig } from "vite";
-import gqlDenoJson from "../graphql/server/deno.jsonc" with { type: "json" };
 import dbClientDenoJson from "../dbClient/deno.jsonc" with { type: "json" };
+import gqlDenoJson from "../graphql/server/deno.jsonc" with { type: "json" };
 
 export default defineConfig(({ mode }) => {
   // Note: ビルド時にバンドルしないライブラリ、document、window を直接使っている等で、そのままでは deno で実行できないものが対象
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
     };
   }
 
-  const ssrExternal = ["react", "react-dom"];
+  const ssrExternal = ["react", "react-dom", "@supabase/ssr"];
   // Note: graphql、dbClient モジュールの依存関係を SSR 対象から外す
   const moduleList = Object.keys({
     ...gqlDenoJson.imports,

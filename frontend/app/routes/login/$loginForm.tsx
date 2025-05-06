@@ -11,7 +11,7 @@ export const loginFormSchema = z.object({
   password: z.string().min(1, { message: "入力してください。" }),
 });
 
-export function LoginForm() {
+export function LoginForm({ loginError }: { loginError?: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const formObject = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -25,7 +25,7 @@ export function LoginForm() {
     <Form {...formObject}>
       <form ref={formRef} method="POST" onSubmit={submitAction({ formRef, formObject })}>
         <Card className="w-[350px]">
-          <CardHeader />
+          <CardHeader>{loginError && <div className="text-destructive text-sm">{loginError}</div>}</CardHeader>
           <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
