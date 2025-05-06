@@ -27,7 +27,7 @@ export default createRoute((c) => {
   const error = c.req.query(ERROR_PARAM_KEY);
   return c.render(
     <div className="flex h-full w-full justify-center items-center-safe">
-      <LoginForm loginError={error} />
+      <LoginForm error={error} />
     </div>,
   );
 });
