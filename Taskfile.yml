@@ -46,3 +46,7 @@ tasks:
   gql-client:
     cmds:
       - deno task gql:client
+
+  add-ui:
+    cmds:
+      - deno task add:shadcn {{.CLI_ARGS}}

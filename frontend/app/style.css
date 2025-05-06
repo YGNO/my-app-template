@@ -12,6 +12,9 @@
 @import "@/components/datePicker/datepicker.css";
 
 @layer base {
+  html, body {
+    @apply h-full m-0;
+  }
   button,
   [role="button"] {
     cursor: pointer;

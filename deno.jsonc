@@ -9,7 +9,17 @@
     "hono": "npm:hono@^4.7.7",
     "honox": "npm:honox@^0.1.40",
     "regenerator-runtime": "npm:regenerator-runtime@^0.14.1",
-    "vite": "npm:vite@^6.3.2"
+
+    // frontend と shadcn で共通利用しているライブラリ
+    "lucide-react": "npm:lucide-react@^0.507.0",
+    "react": "npm:react@^19.1.0",
+    "react-dom": "npm:react-dom@^19.1.0",
+    "react-hook-form": "npm:react-hook-form@^7.56.2",
+    "tailwind-merge": "npm:tailwind-merge@^3.2.0",
+    "tailwindcss": "npm:tailwindcss@^4.1.5",
+    "tw-animate-css": "npm:tw-animate-css@^1.2.9",
+    "vite": "npm:vite@^6.3.2",
+    "zod": "npm:zod@^3.24.4"
   },
   "nodeModulesDir": "auto",
   "workspace": [
@@ -20,13 +30,16 @@
     "./graphql/server",
     "./supabase/functions/*"
   ],
+  "lint": {
+    "exclude": ["**/node_modules/**/*.*", "**/dist/**/*.*", "**/__generated__/**/*.*"]
+  },
   "tasks": {
     "f:dev": "deno task --cwd=./frontend dev",
     "f:build": "deno task --cwd=./frontend build",
     "f:prev": "deno task --cwd=./frontend preview",
     "db:client": "deno task --cwd=./dbClient db:schema && deno task --cwd=./dbClient cp:supabase",
     "gql:client": "deno task --cwd=./graphql/client gql:client",
-    "add:shadcn": "deno task --cwd=./shadcnUi add:shadcn",
+    "add:shadcn": "deno task --cwd=./shadcn add:shadcn",
     "fmt": "deno run -A npm:@biomejs/biome format --write ."
   }
 }
