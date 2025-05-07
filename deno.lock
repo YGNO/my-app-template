@@ -10,6 +10,7 @@
     "npm:@hookform/resolvers@^5.0.1": "5.0.1_react-hook-form@7.56.2__react@19.1.0_react@19.1.0",
     "npm:@pothos/core@^4.6.0": "4.6.2_graphql@16.11.0",
     "npm:@pothos/plugin-add-graphql@^4.2.2": "4.2.3_@pothos+core@4.6.2__graphql@16.11.0_graphql@16.11.0",
+    "npm:@pothos/plugin-dataloader@^4.4.1": "4.4.1_@pothos+core@4.6.2__graphql@16.11.0_dataloader@2.2.3_graphql@16.11.0",
     "npm:@radix-ui/react-dialog@^1.1.11": "1.1.11_@types+react@19.1.2_@types+react-dom@19.1.3__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-label@^2.1.4": "2.1.4_@types+react@19.1.2_@types+react-dom@19.1.3__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-separator@^1.1.4": "1.1.4_@types+react@19.1.2_@types+react-dom@19.1.3__@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -502,6 +503,14 @@
       "integrity": "sha512-bCRvRs9+ux/X8j/0Sx+Rdlt++z6QTbIVkD4R5mpmASrgmlLl9rel1IAlGK8Rh6ZgA+xC+pSlq06Wrhwk9LWEsQ==",
       "dependencies": [
         "@pothos/core",
+        "graphql"
+      ]
+    },
+    "@pothos/plugin-dataloader@4.4.1_@pothos+core@4.6.2__graphql@16.11.0_dataloader@2.2.3_graphql@16.11.0": {
+      "integrity": "sha512-xB38Txcq5ArJ85fKAb+qh3za7ogIhH0mxeYn+/SnzljzkwV3hJ1isvQq9KMbSePpJAHrtrBOI0xafGZ91QuCWg==",
+      "dependencies": [
+        "@pothos/core",
+        "dataloader",
         "graphql"
       ]
     },
@@ -1443,6 +1452,9 @@
     },
     "csstype@3.1.3": {
       "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+    },
+    "dataloader@2.2.3": {
+      "integrity": "sha512-y2krtASINtPFS1rSDjacrFgn1dcUuoREVabwlOGOe4SdxenREqwjwjElAdwvbGM7kgZz9a3KVicWR7vcz8rnzA=="
     },
     "date-fns@4.1.0": {
       "integrity": "sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg=="
@@ -2816,6 +2828,7 @@
           "npm:@hono/graphql-server@~0.5.1",
           "npm:@pothos/core@^4.6.0",
           "npm:@pothos/plugin-add-graphql@^4.2.2",
+          "npm:@pothos/plugin-dataloader@^4.4.1",
           "npm:drizzle-graphql@~0.8.5",
           "npm:drizzle-orm@~0.43.1",
           "npm:graphql@^16.11.0"

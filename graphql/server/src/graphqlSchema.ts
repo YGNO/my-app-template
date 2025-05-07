@@ -1,34 +1,51 @@
-import { buildSchema } from "drizzle-graphql";
-import { printSchema } from "graphql";
-import AddGraphQLPlugin from "@pothos/plugin-add-graphql";
-import SchemaBuilder from "@pothos/core";
 import { dbClient, dbSchema } from "@my-app/db-client";
+import SchemaBuilder from "@pothos/core";
+import AddGraphQLPlugin from "@pothos/plugin-add-graphql";
 import { eq } from "drizzle-orm";
+import { printSchema } from "graphql";
+import { registerObjectType } from "./object/graphqlObject.ts";
+import type { GraphqlObject } from "./object/graphqlObject.ts";
 
 // Note: pothos には drizzle プラグインが存在するが、試験的なもののようなので使用しない
 // https://pothos-graphql.dev/docs/plugins/drizzle
-const { entities } = buildSchema(dbClient);
 const builder = new SchemaBuilder({ plugins: [AddGraphQLPlugin] });
+const objectMap = registerObjectType(builder);
 
-const PrefectureItem = builder.addGraphQLObject<typeof dbSchema.prefecture._.inferSelect>(
-  entities.types.PrefectureItem,
-);
-
-const Municipality = builder.addGraphQLObject<typeof dbSchema.municipality._.inferSelect>(
-  entities.types.MunicipalityItem,
-);
+const t: GraphqlObject<typeof objectMap.prefecture, typeof objectMap.prefecture.$inferType> = {
+  queries(type, qb) {
+    return {
+      prefectures: qb.field({
+        type: [type],
+        resolve: async () => {
+          const prefs = await dbClient.select().from(dbSchema.prefecture);
+          return prefs || [];
+        },
+      }),
+      prefecture: qb.field({
+        type: type,
+        args: {
+          code: qb.arg.int({ required: true }),
+        },
+        resolve: async (_, { code }) => {
+          const [pref] = await dbClient.select().from(dbSchema.prefecture).where(eq(dbSchema.prefecture.code, code));
+          return pref || null;
+        },
+      }),
+    };
+  },
+};
 
 builder.queryType({
   fields: (t) => ({
     prefectures: t.field({
-      type: [PrefectureItem],
+      type: [objectMap.prefecture],
       resolve: async () => {
         const prefs = await dbClient.select().from(dbSchema.prefecture);
         return prefs || [];
       },
     }),
     prefecture: t.field({
-      type: PrefectureItem,
+      type: objectMap.prefecture,
       args: {
         code: t.arg.int({ required: true }),
       },
@@ -38,14 +55,14 @@ builder.queryType({
       },
     }),
     municipalites: t.field({
-      type: [Municipality],
+      type: [objectMap.municipality],
       resolve: async () => {
         const prefs = await dbClient.select().from(dbSchema.municipality);
         return prefs || [];
       },
     }),
     municipality: t.field({
-      type: Municipality,
+      type: objectMap.municipality,
       args: {
         code: t.arg.int({ required: true }),
       },
@@ -59,9 +76,9 @@ builder.queryType({
 
 // 都道府県の下に市区町村を結びつける
 // FIXME: N+1 の解決
-builder.objectField(PrefectureItem, "municipalities", (t) =>
+builder.objectField(objectMap.prefecture, "municipalities", (t) =>
   t.field({
-    type: [Municipality],
+    type: [objectMap.municipality],
     resolve: async (parent) => {
       return await dbClient
         .select()
