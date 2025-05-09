@@ -11,6 +11,8 @@
     "noUncheckedIndexedAccess": true
   },
   "tasks": {
-    "add:shadcn": "deno run -A add-shadcn.ts"
+    "add:shadcn": "deno run -A add-shadcn.ts",
+    "mw:update": "deno outdated --update",
+    "mw:update:f": "deno outdated --update --latest"
   }
 }

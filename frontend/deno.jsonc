@@ -15,7 +15,7 @@
     "@slickgrid-universal/common": "npm:@slickgrid-universal/common@^5.13.4",
     "@supabase/ssr": "npm:@supabase/ssr@^0.6.1",
     "date-fns": "npm:date-fns@^4.1.0",
-    "slickgrid-react": "npm:slickgrid-react@^5.13.4",
+    "slickgrid-react": "npm:slickgrid-react@^5.14.1",
     "vanilla-calendar-pro": "npm:vanilla-calendar-pro@^3.0.4",
     "zod-form-data": "npm:zod-form-data@^2.0.7"
   },
@@ -23,6 +23,8 @@
     "check": "deno fmt --check && deno lint && deno check .",
     "dev": "deno run -A npm:vite",
     "build": "vite build --mode client && vite build",
-    "preview": "deno serve -A dist/index.js"
+    "preview": "deno serve -A dist/index.js",
+    "mw:update": "deno outdated --update",
+    "mw:update:f": "deno outdated --update --latest"
   }
 }

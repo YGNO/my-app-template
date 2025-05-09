@@ -3,6 +3,10 @@
     "drizzle-orm": "npm:/drizzle-orm",
     "drizzle-orm/": "npm:/drizzle-orm/",
     "pg": "npm:pg",
-    "@types/pg": "npm:@types/pg"
+    "@types/pg": "npm:@types/pg@8.15.1"
+  },
+  "tasks": {
+    "mw:update": "deno outdated --update",
+    "mw:update:f": "deno outdated --update --latest"
   }
 }

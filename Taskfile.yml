@@ -50,3 +50,11 @@ tasks:
   add-ui:
     cmds:
       - deno task add:shadcn {{.CLI_ARGS}}
+
+  mw-update:
+    cmds:
+      - deno task --recursive mw:update
+
+  mw-update:f:
+    cmds:
+      - deno task --recursive mw:update:f

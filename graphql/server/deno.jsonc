@@ -5,11 +5,13 @@
   },
   "imports": {
     "@hono/graphql-server": "npm:@hono/graphql-server@^0.5.1",
-    "@pothos/core": "npm:@pothos/core@^4.6.0",
-    "@pothos/plugin-add-graphql": "npm:@pothos/plugin-add-graphql@^4.2.2",
+    "@pothos/core": "npm:@pothos/core@^4.6.2",
+    "@pothos/plugin-add-graphql": "npm:@pothos/plugin-add-graphql@^4.2.3",
     "@pothos/plugin-dataloader": "npm:@pothos/plugin-dataloader@^4.4.1",
     "drizzle-orm": "npm:drizzle-orm@^0.43.1",
     "drizzle-graphql": "npm:drizzle-graphql@^0.8.5",
-    "graphql": "npm:graphql@^16.11.0"
+    "graphql": "npm:graphql@^16.11.0",
+    "mw:update": "deno outdated --update",
+    "mw:update:f": "deno outdated --update --latest"
   }
 }
