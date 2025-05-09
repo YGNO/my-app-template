@@ -1,6 +1,6 @@
 import { graphqlServer } from "@hono/graphql-server";
 import { Hono } from "hono";
-import graphqlSchema from "./graphqlSchema.ts";
+import graphqlSchema from "./schemaDefine.ts";
 
 const graphqlApp = new Hono();
 
