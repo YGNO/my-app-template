@@ -14,8 +14,9 @@ tasks:
       - npx supabase migration new {{.CLI_ARGS}}
 
   sb-migration-up:
+    dotenv: [".env.{{.CLI_ARGS}}", ".env.local"]
     cmds:
-      - npx supabase migration up {{.CLI_ARGS}}
+      - npx supabase migration up --db-url $SUPABASE_DB_URL
 
   sb-link:
     dotenv: [".env.dev"]
@@ -23,7 +24,7 @@ tasks:
       - npx supabase link -p $SUPABASE_DB_PASS --project-ref $SUPABASE_PROJECT_ID
 
   sb-fndeploy:
-    dotenv: [".env.dev"]
+    dotenv: [".env.{{.CLI_ARGS}}", ".env.local"]
     cmds:
       - npx supabase functions deploy
 
