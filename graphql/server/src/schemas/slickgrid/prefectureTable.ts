@@ -1,0 +1,33 @@
+import { dbClient, dbSchema } from "@my-app/db-client";
+import { count, sql } from "drizzle-orm";
+import type { SchemaBuilderType } from "../../schemaDefine.ts";
+import { registerGridQuery, setPagination } from "./slickgridQueryUtils.ts";
+
+type Field = "code" | "name" | "nameKana" | "nameAlpha";
+const fields: readonly Field[] = ["code", "name", "nameKana", "nameAlpha"];
+export const prefectureTable = (builder: SchemaBuilderType) => {
+  return registerGridQuery({
+    name: "PrefectureTable",
+    fields,
+    builder,
+    async resolve(args) {
+      const prefecture = dbSchema.prefecture;
+      const totalCount = (await dbClient.select({ count: count() }).from(prefecture))[0].count;
+
+      let nodeSql = dbClient
+        .select({
+          code: prefecture.code,
+          name: prefecture.name,
+          // Note: DBの列名 と Grid の列名で名前が違うので、補正する
+          nameKana: sql<string>`(${prefecture.nameKana})`.as("nameKana"),
+          nameAlpha: sql<string>`(${prefecture.nameAlpha})`.as("nameAlpha"),
+        })
+        .from(prefecture)
+        .$dynamic();
+      nodeSql = setPagination(nodeSql, prefecture.code, args);
+      const nodes = (await nodeSql) || [];
+
+      return { totalCount, nodes };
+    },
+  });
+};
