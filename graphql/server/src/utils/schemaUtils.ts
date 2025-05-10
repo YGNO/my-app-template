@@ -2,8 +2,7 @@ import type { FieldRef, GenericFieldRef, ObjectFieldThunk, QueryFieldsShape } fr
 import type { TableConfig } from "drizzle-orm";
 import type { PgTableWithColumns } from "drizzle-orm/pg-core/table";
 import type { GraphQLObjectType } from "graphql";
-import type { SchemaBuilderType, SchemaType } from "../schemaBuilder.ts";
-import type { ObjectMap } from "../schemaDefine.ts";
+import type { ObjectMap, SchemaBuilderType, SchemaType } from "../schemaDefine.ts";
 
 /**
  * drizzle で生成したスキーマ情報を pothos のオブジェクトに変換する
