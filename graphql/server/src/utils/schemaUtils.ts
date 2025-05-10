@@ -1,8 +1,8 @@
-import type { GenericFieldRef } from "@pothos/core";
+import type { FieldRef, GenericFieldRef, ObjectFieldThunk, QueryFieldsShape } from "@pothos/core";
 import type { TableConfig } from "drizzle-orm";
 import type { PgTableWithColumns } from "drizzle-orm/pg-core/table";
 import type { GraphQLObjectType } from "graphql";
-import type { GqlObject, GqlQuery, ObjectFieldBuilder, QueryFieldBuilder, SchemaBuilder } from "../pothosTypes.d.ts";
+import type { SchemaBuilderType, SchemaType } from "../schemaBuilder.ts";
 import type { ObjectMap } from "../schemaDefine.ts";
 
 /**
@@ -11,34 +11,36 @@ import type { ObjectMap } from "../schemaDefine.ts";
  * Note: pothos には drizzle プラグインが存在するが、試験的なもののようなので使用しない
  * https://pothos-graphql.dev/docs/plugins/drizzle
  */
-export const toPothos = <T extends TableConfig>(
-  sb: SchemaBuilder,
-  table: PgTableWithColumns<T>,
+export const toPothos = <DbTable extends TableConfig>(
+  sb: SchemaBuilderType,
+  table: PgTableWithColumns<DbTable>,
   objectType: GraphQLObjectType,
 ) => {
   return sb.addGraphQLObject<typeof table.$inferSelect>(objectType);
 };
 
-type RegisterQueries<T> = (
+/** オブジェクトのクエリを定義する関数 */
+type RegisterQueries<RtuenType> = (
   objects: ObjectMap,
-  qb: QueryFieldBuilder,
-) => { [queryName: string]: GqlQuery<T | null | undefined> };
+  qb: Parameters<QueryFieldsShape<SchemaType>>[0],
+) => { [queryName: string]: FieldRef<SchemaType, RtuenType | null | undefined, "Query"> };
 
-type SetRelations<T> = (
-  object: GqlObject<T>,
+/** オブジェクトの関連設定を定義する関数 */
+type SetRelations<ParentType> = (
+  object: PothosSchemaTypes.ObjectRef<SchemaType, ParentType, ParentType>,
   relations: {
-    [relationName: string]: (t: ObjectFieldBuilder<T>) => GenericFieldRef;
+    [relationName: string]: (t: Parameters<ObjectFieldThunk<SchemaType, ParentType>>[0]) => GenericFieldRef;
   },
 ) => void;
 
-type RegisterRelations<T> = (objects: ObjectMap, set: SetRelations<T>) => void;
+type RegisterRelations<ObjectType> = (objects: ObjectMap, set: SetRelations<ObjectType>) => void;
 
 /** スキーマ定義 */
-export interface GqlSchema<T> {
+export interface GqlSchema<ObjectType> {
   /** クエリ設定 */
-  queries: RegisterQueries<T | readonly T[]>;
+  queries: RegisterQueries<ObjectType | readonly ObjectType[]>;
   /** 関連設定 */
-  relations: RegisterRelations<T>;
+  relations: RegisterRelations<ObjectType>;
 }
 
 /**
@@ -48,7 +50,7 @@ export interface GqlSchema<T> {
  * @param schemaList 登録対象のスキーマ一覧
  */
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const registerSchema = (sb: SchemaBuilder, objects: ObjectMap, schemaList: GqlSchema<any>[]) => {
+export const registerSchema = (sb: SchemaBuilderType, objects: ObjectMap, schemaList: GqlSchema<any>[]) => {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const queries: RegisterQueries<any>[] = [];
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

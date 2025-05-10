@@ -8,7 +8,9 @@
     "npm:@hono/vite-build@^1.6.1": "1.6.1_hono@4.7.9",
     "npm:@hono/vite-dev-server@0.19": "0.19.0_hono@4.7.9",
     "npm:@hookform/resolvers@^5.0.1": "5.0.1_react-hook-form@7.56.3__react@19.1.0_react@19.1.0",
+    "npm:@pothos/core@^4.6.0": "4.6.2_graphql@16.11.0",
     "npm:@pothos/core@^4.6.2": "4.6.2_graphql@16.11.0",
+    "npm:@pothos/plugin-add-graphql@^4.2.2": "4.2.3_@pothos+core@4.6.2__graphql@16.11.0_graphql@16.11.0",
     "npm:@pothos/plugin-add-graphql@^4.2.3": "4.2.3_@pothos+core@4.6.2__graphql@16.11.0_graphql@16.11.0",
     "npm:@pothos/plugin-dataloader@^4.4.1": "4.4.1_@pothos+core@4.6.2__graphql@16.11.0_dataloader@2.2.3_graphql@16.11.0",
     "npm:@radix-ui/react-dialog@^1.1.13": "1.1.13_@types+react@19.1.3_@types+react-dom@19.1.3__@types+react@19.1.3_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -30,6 +32,7 @@
     "npm:drizzle-graphql@~0.8.5": "0.8.5_drizzle-orm@0.43.1__@types+pg@8.15.1__pg@8.15.6_graphql@16.11.0_@types+pg@8.15.1_pg@8.15.6",
     "npm:drizzle-orm@*": "0.43.1_@types+pg@8.15.1_pg@8.15.6",
     "npm:drizzle-orm@~0.43.1": "0.43.1_@types+pg@8.15.1_pg@8.15.6",
+    "npm:graphql-scalars@^1.24.2": "1.24.2_graphql@16.11.0",
     "npm:graphql@^16.11.0": "16.11.0",
     "npm:hono@^4.7.9": "4.7.9",
     "npm:honox@~0.1.40": "0.1.40_hono@4.7.9",
@@ -1855,6 +1858,13 @@
         "tslib"
       ]
     },
+    "graphql-scalars@1.24.2_graphql@16.11.0": {
+      "integrity": "sha512-FoZ11yxIauEnH0E5rCUkhDXHVn/A6BBfovJdimRZCQlFCl+h7aVvarKmI15zG4VtQunmCDdqdtNs6ixThy3uAg==",
+      "dependencies": [
+        "graphql",
+        "tslib"
+      ]
+    },
     "graphql@16.11.0": {
       "integrity": "sha512-mS1lbMsxgQj6hge1XZ6p7GPhbrtFwUFYi3wRzXAC/FmYnyXMTvvI3td3rjmQ2u8ewXueaSvRPWaEcgVVOT9Jnw=="
     },
@@ -2879,6 +2889,7 @@
           "npm:@pothos/plugin-dataloader@^4.4.1",
           "npm:drizzle-graphql@~0.8.5",
           "npm:drizzle-orm@~0.43.1",
+          "npm:graphql-scalars@^1.24.2",
           "npm:graphql@^16.11.0"
         ]
       },
