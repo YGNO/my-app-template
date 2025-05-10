@@ -17,8 +17,6 @@ const municipality: GqlSchema<typeof dbSchema.municipality.$inferSelect> = {
       resolve: (_, { code }) => findSingle(code),
     }),
   }),
-
-  relations: () => {},
 };
 
 export default municipality;

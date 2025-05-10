@@ -38,9 +38,9 @@ type RegisterRelations<ObjectType> = (objects: ObjectMap, set: SetRelations<Obje
 /** スキーマ定義 */
 export interface GqlSchema<ObjectType> {
   /** クエリ設定 */
-  queries: RegisterQueries<ObjectType | readonly ObjectType[]>;
+  queries?: RegisterQueries<ObjectType | readonly ObjectType[]>;
   /** 関連設定 */
-  relations: RegisterRelations<ObjectType>;
+  relations?: RegisterRelations<ObjectType>;
 }
 
 /**
@@ -56,8 +56,8 @@ export const registerSchema = (sb: SchemaBuilderType, objects: ObjectMap, schema
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const relations: RegisterRelations<any>[] = [];
   for (const schema of schemaList) {
-    queries.push(schema.queries);
-    relations.push(schema.relations);
+    schema.queries && queries.push(schema.queries);
+    schema.relations && relations.push(schema.relations);
   }
 
   sb.queryType({
