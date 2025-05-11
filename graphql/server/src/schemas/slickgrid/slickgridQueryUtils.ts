@@ -1,5 +1,5 @@
 import type { FieldRef } from "@pothos/core";
-import { asc, sql } from "drizzle-orm";
+import { type SQL, and, asc, eq, gt, gte, inArray, like, lt, lte, ne, notInArray, notLike, sql } from "drizzle-orm";
 import type { PgColumn, PgSelect } from "drizzle-orm/pg-core";
 import type { SchemaBuilderType, SchemaType } from "../../schemaDefine.ts";
 import type { GqlSchema } from "../../utils/schemaUtils.ts";
@@ -21,7 +21,7 @@ const registerOrder = <Field extends string>(name: string, fields: readonly Fiel
 
 export const SLICKGRID_FILTER_VALUE = "SlickgridFilterValue";
 // TODO: 必要であれば、随時追加する
-type SlickgridFilterValueType = string | number;
+type SlickgridFilterValueType = string | number | Array<unknown>;
 export type SlickgridFilterValue = {
   SlickgridFilterValue: {
     Input: SlickgridFilterValueType;
@@ -31,16 +31,26 @@ export type SlickgridFilterValue = {
 export const SlickgridFilterResolver = {
   serialize: (v: SlickgridFilterValueType) => v,
   parseValue: (v: unknown): SlickgridFilterValueType => {
-    if (typeof v === "number") {
-      return v;
-    }
-    if (typeof v === "string") {
+    if (Array.isArray(v) || typeof v === "number" || typeof v === "string") {
       return v;
     }
     throw new Error("Value must be a SlickgridFilterValueType");
   },
 };
 
+type Operator =
+  | "Contains"
+  | "Not_Contains"
+  | "LT"
+  | "LE"
+  | "GT"
+  | "GE"
+  | "NE"
+  | "EQ"
+  | "StartsWith"
+  | "EndsWith"
+  | "IN"
+  | "NIN";
 const registerFilter = <Field extends string>(name: string, fields: readonly Field[], sb: SchemaBuilderType) => {
   const field = sb.enumType(`${name}_filter_fields`, { values: fields });
 
@@ -48,8 +58,6 @@ const registerFilter = <Field extends string>(name: string, fields: readonly Fie
   const operator = sb.enumType(`${name}_operator`, {
     values: ["Contains", "Not_Contains", "LT", "LE", "GT", "NE", "EQ", "StartsWith", "EndsWith", "IN", "NOT_IN"],
   });
-
-  sb.addScalarType;
 
   return sb.inputType(`${name}_filter`, {
     fields: (fb) => ({
@@ -96,9 +104,11 @@ type PaginationOption<Field extends string> = {
   orderBy?: { field: keyof Field; direction: Direction }[] | null;
 };
 
-type QueryArgs<Field extends string> = PaginationOption<Field> & {
-  filterBy?: { field: Field; value: SlickgridFilterValueType }[] | null;
+type FilterOption<Field extends string> = {
+  filterBy?: { field: Field; operator: Operator; value: SlickgridFilterValueType }[] | null;
 };
+
+type QueryArgs<Field extends string> = PaginationOption<Field> & FilterOption<Field>;
 
 /**
  * slickgrid 用のクエリを登録する
@@ -140,25 +150,101 @@ export const registerGridQuery = <Field extends string>({
 };
 
 /** 指定されたSQLステートメントにページング用のオプションを連結する  */
-export const setPagination = <SQL extends PgSelect, Field extends string>(
-  selectSql: SQL,
+export const setPagination = <Query extends PgSelect, Field extends string>(
+  selectSql: Query,
   id: PgColumn,
-  optin: PaginationOption<Field>,
+  option: PaginationOption<Field>,
 ) => {
-  const { first, offset } = optin;
+  const { first, offset } = option;
   return selectSql
-    .orderBy(toOrderBySql(optin, id))
+    .orderBy(toOrderBySql(option, id))
     .limit(first)
     .offset(offset * first);
 };
 
-const toOrderBySql = <Field extends string>(optin: PaginationOption<Field>, id: PgColumn) => {
-  if (!optin.orderBy) {
+const toOrderBySql = <Field extends string>(option: PaginationOption<Field>, id: PgColumn) => {
+  if (!option.orderBy) {
     return asc(id);
   }
 
   // Note: ソートは複数指定しても最初の１つだけの適用にする
-  const { field, direction } = optin.orderBy[0];
+  const { field, direction } = option.orderBy[0];
   // Note: drizzle は列を " で囲んで生成するので、列名は " で囲んでおく
   return sql.raw(`"${field.toString()}" ${direction}, "${id.name}" ${direction}`);
+};
+
+/** 指定されたSQLステートメントに検索用のオプションを連結する  */
+export const setFilterOption = <Query extends PgSelect, Field extends string>(
+  selectSql: Query,
+  option: FilterOption<Field>,
+) => {
+  if (!option.filterBy || option.filterBy.length === 0) {
+    return selectSql;
+  }
+  const filters: SQL<unknown>[] = [];
+  for (const { field, operator, value } of option.filterBy) {
+    if (typeof value === "number") {
+      filters.push(numberFilter(field, operator, value));
+    }
+    if (typeof value === "string") {
+      filters.push(stringFilter(field, operator, value));
+    }
+    if (Array.isArray(value)) {
+      filters.push(arrayFilter(field, operator, value));
+    }
+  }
+  selectSql.where(and(...filters));
+  return selectSql;
+};
+
+const stringFilter = <Field extends string>(field: Field, operator: Operator, value: string) => {
+  const f = sql.raw(`"${field}"`);
+  switch (operator) {
+    case "EQ":
+      return eq(f, value);
+    case "NE":
+      return ne(f, value);
+    case "Contains":
+      return like(f, sql`'%' || ${value} || '%'`);
+    case "Not_Contains":
+      return notLike(f, sql`'%' || ${value} || '%'`);
+    case "StartsWith":
+      return like(f, sql`${value} || '%'`);
+    case "EndsWith":
+      return like(f, sql`'%' || ${value}`);
+    default:
+      throw Error(`invalid operator(field:${field}, operator:${operator})`);
+  }
+};
+
+const numberFilter = <Field extends string>(field: Field, operator: Operator, value: number) => {
+  const f = sql.raw(field);
+  switch (operator) {
+    case "EQ":
+      return eq(f, value);
+    case "NE":
+      return ne(f, value);
+    case "LE":
+      return lte(f, value);
+    case "LT":
+      return lt(f, value);
+    case "GE":
+      return gte(f, value);
+    case "GT":
+      return gt(f, value);
+    default:
+      throw Error(`invalid operator(field:${field}, operator:${operator})`);
+  }
+};
+
+const arrayFilter = <Field extends string>(field: Field, operator: Operator, value: Array<unknown>) => {
+  const f = sql.raw(field);
+  switch (operator) {
+    case "IN":
+      return inArray(f, value);
+    case "NIN":
+      return notInArray(f, value);
+    default:
+      throw Error(`invalid operator(field:${field}, operator:${operator})`);
+  }
 };
