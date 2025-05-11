@@ -1,5 +1,5 @@
 import type { FieldRef } from "@pothos/core";
-import { type SQL, and, asc, eq, gt, gte, inArray, like, lt, lte, ne, notInArray, notLike, sql } from "drizzle-orm";
+import { type SQL, and, eq, gt, gte, inArray, like, lt, lte, ne, notInArray, notLike, sql } from "drizzle-orm";
 import type { PgColumn, PgSelect } from "drizzle-orm/pg-core";
 import type { SchemaBuilderType, SchemaType } from "../../schemaDefine.ts";
 import type { GqlSchema } from "../../utils/schemaUtils.ts";
@@ -156,15 +156,12 @@ export const setPagination = <Query extends PgSelect, Field extends string>(
   option: PaginationOption<Field>,
 ) => {
   const { first, offset } = option;
-  return selectSql
-    .orderBy(toOrderBySql(option, id))
-    .limit(first)
-    .offset(offset * first);
+  return selectSql.orderBy(toOrderBySql(option, id)).limit(first).offset(offset);
 };
 
 const toOrderBySql = <Field extends string>(option: PaginationOption<Field>, id: PgColumn) => {
   if (!option.orderBy) {
-    return asc(id);
+    return sql.raw(`"${id.name}" asc`);
   }
 
   // Note: ソートは複数指定しても最初の１つだけの適用にする

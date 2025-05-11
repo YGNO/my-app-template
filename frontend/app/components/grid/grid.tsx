@@ -50,8 +50,8 @@ const Grid: ForwardGridRefFunction = ({ id, column, options, data }, ref) => {
     <Suspense fallback={loading}>
       <SlickgridReact
         gridId={id}
-        columnDefinitions={column}
-        gridOptions={options}
+        columns={column}
+        options={options}
         dataset={data}
         onReactGridCreated={($event) => setGridInstance($event.detail)}
       />
