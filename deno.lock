@@ -1,6 +1,7 @@
 {
   "version": "5",
   "specifiers": {
+    "jsr:@std/path@1.0.8": "1.0.8",
     "jsr:@std/path@^1.0.9": "1.0.9",
     "npm:@genql/cli@^6.3.3": "6.3.3_graphql@16.11.0_undici@5.29.0",
     "npm:@hono/graphql-server@~0.5.1": "0.5.1_hono@4.7.9",
@@ -18,7 +19,8 @@
     "npm:@radix-ui/react-separator@^1.1.6": "1.1.6_@types+react@19.1.3_@types+react-dom@19.1.3__@types+react@19.1.3_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@radix-ui/react-slot@^1.2.2": "1.2.2_@types+react@19.1.3_react@19.1.0",
     "npm:@radix-ui/react-tooltip@^1.2.6": "1.2.6_@types+react@19.1.3_@types+react-dom@19.1.3__@types+react@19.1.3_react@19.1.0_react-dom@19.1.0__react@19.1.0",
-    "npm:@slickgrid-universal/common@^5.13.4": "5.14.0",
+    "npm:@slickgrid-universal/common@9": "9.0.0",
+    "npm:@slickgrid-universal/graphql@9": "9.0.0",
     "npm:@supabase/ssr@~0.6.1": "0.6.1_@supabase+supabase-js@2.49.4",
     "npm:@tailwindcss/vite@^4.1.6": "4.1.6_vite@6.3.5__@types+node@22.15.17__picomatch@4.0.2_@types+node@22.15.17",
     "npm:@types/node@^22.15.17": "22.15.17",
@@ -43,16 +45,20 @@
     "npm:react-hook-form@^7.56.3": "7.56.3_react@19.1.0",
     "npm:react@^19.1.0": "19.1.0",
     "npm:regenerator-runtime@~0.14.1": "0.14.1",
-    "npm:slickgrid-react@^5.14.1": "5.14.1_react@19.1.0",
+    "npm:slickgrid-react@9": "9.0.0_react@19.1.0",
     "npm:tailwind-merge@^3.2.0": "3.2.0",
     "npm:tailwindcss@^4.1.6": "4.1.6",
     "npm:tw-animate-css@^1.2.9": "1.2.9",
     "npm:vanilla-calendar-pro@^3.0.4": "3.0.4",
+    "npm:vite@*": "6.3.5_@types+node@22.15.17_picomatch@4.0.2",
     "npm:vite@^6.3.2": "6.3.5_@types+node@22.15.17_picomatch@4.0.2",
     "npm:zod-form-data@^2.0.7": "2.0.7_zod@3.24.4",
     "npm:zod@^3.24.4": "3.24.4"
   },
   "jsr": {
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    },
     "@std/path@1.0.9": {
       "integrity": "260a49f11edd3db93dd38350bf9cd1b4d1366afa98e81b86167b4e3dd750129e"
     }
@@ -101,9 +107,6 @@
         "@babel/types@7.27.1"
       ],
       "bin": true
-    },
-    "@babel/runtime@7.27.1": {
-      "integrity": "sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog=="
     },
     "@babel/template@7.27.2": {
       "integrity": "sha512-LPDZ85aEJyYSd18/DkjNh4/y1ntkE5KwUHWTiqgRxruuZL2F1yuHligVHLvcHY2vMHXttKFpJn6LwfI7cw7ODw==",
@@ -291,8 +294,8 @@
       "os": ["win32"],
       "cpu": ["x64"]
     },
-    "@excel-builder-vanilla/types@3.1.0": {
-      "integrity": "sha512-BcCMAFI3XtuJ0AUnkCIP3SSyz7tn3kNp32Ew3JTxCpkluVDgty1AIIr7hUngHhNdwNx6WkFOyniJz/KIYJtcTQ==",
+    "@excel-builder-vanilla/types@4.0.1": {
+      "integrity": "sha512-jUeMSeKDavKPArdfNroST4P6oJ9rBqp9SwgQxjdlahLcLU9dsM9teHuKpdop7q6apykou1Tf8pGd0b5rt5MYbw==",
       "dependencies": [
         "fflate"
       ]
@@ -973,11 +976,11 @@
     "@rvf/set-get@7.0.1": {
       "integrity": "sha512-GkTSn9K1GrTYoTUqlUs36k6nJnzjQaFBTTEIqUYmzBcsGsoJM8xG7EAx2WLHWAA4QzFjcwWUSHQ3vM3Fbw50Tg=="
     },
-    "@slickgrid-universal/binding@5.12.2": {
-      "integrity": "sha512-o7dTmmW4DVBZi01VQHjO/cIJEH5RNz+rIrnQKwldTRoKC05vKOQTF/vuQAqTkhI7YHzFaspfvdy92oagEt5niw=="
+    "@slickgrid-universal/binding@9.0.0": {
+      "integrity": "sha512-xtK+ism+PBVQ7CibF6ZaQ2pRnI2fqp/VdCypcP+ZvNJgwSOMgNXFQQ6UyCvP8X+OdaHBnJjQP9RiEZKSvrQgTw=="
     },
-    "@slickgrid-universal/common@5.14.0": {
-      "integrity": "sha512-Mme6d5G+lUqXCt0VOrzSscOJ1oYRSEIOC1v3Gdg+P4rQK0Hhgl0lSAzsGQX6yBrIw7rOX1VN+OZ9zoEqYidILA==",
+    "@slickgrid-universal/common@9.0.0": {
+      "integrity": "sha512-VwNy2WRo3wXQcG+60LUS77rrsmwzKd9ekBTZaTm4SKuxiv2DOKeACBMAIcf/l2Ux2JGhGpWGm9tqX5Fpdby/2w==",
       "dependencies": [
         "@excel-builder-vanilla/types",
         "@formkit/tempo",
@@ -991,45 +994,52 @@
         "multiple-select-vanilla",
         "sortablejs",
         "un-flatten-tree",
-        "vanilla-calendar-pro@2.9.10"
+        "vanilla-calendar-pro"
       ]
     },
-    "@slickgrid-universal/custom-footer-component@5.14.0": {
-      "integrity": "sha512-4Fr5F+40KF15rI0VixWdNk4VSvjnsSI5DVqSanrmTCNfntJ7sYQ+UBF/LIQMqj99GMkztzPLOdaniFyABk2+Wg==",
+    "@slickgrid-universal/custom-footer-component@9.0.0": {
+      "integrity": "sha512-8cuejQvyy5BmFYQrQLjWUtguyiK2d2/Wywqnhlfr3HB1g06Uo5aAwjB6XGpxQaQYRrdsIIm38EF+o2jPMtXJWQ==",
       "dependencies": [
         "@formkit/tempo",
         "@slickgrid-universal/binding",
         "@slickgrid-universal/common"
       ]
     },
-    "@slickgrid-universal/empty-warning-component@5.14.0": {
-      "integrity": "sha512-RaEBZ5Wg24SkSylKpCbfduC9d9uDaMv7KusCLXvws7z2V4nCoAIBZdb694E6lVBXsZu3UMPZMRw5QBukZQJs9g==",
+    "@slickgrid-universal/empty-warning-component@9.0.0": {
+      "integrity": "sha512-D6aH2CIo4NsbfzdS9/NdU7OaXjVAKi86mOiEwfxpv9kB8pRO+ZrMQ7BaA6cCDWL/V/K84U7ODAvCkCFufo0CTw==",
       "dependencies": [
         "@slickgrid-universal/common"
       ]
     },
-    "@slickgrid-universal/event-pub-sub@5.13.0": {
-      "integrity": "sha512-hjmfRw7fRoyfRgsN3ZsOiNuHmPn/+IxKJTkIhwL2HtWq2j+lP+vHfa7fqUmdMRSg/ResYYHXcF2wlCAVtln/+Q==",
+    "@slickgrid-universal/event-pub-sub@9.0.0": {
+      "integrity": "sha512-Z3caBgN3b5fUp+201v3DxYk2S0w8B1559cKXzCwhVsNE00hmcKtsQMxCcYXAyk/IcSuM2m3Q0ZzSIgvT2qGJOw==",
       "dependencies": [
         "@slickgrid-universal/utils"
       ]
     },
-    "@slickgrid-universal/pagination-component@5.14.0": {
-      "integrity": "sha512-+HrGGdsnjYcEeT4xB6trCBvOgNHv847X58ccpCYORxXmLIDUmToCNuN+lYvCKvFQh1on3GPpy0v+6A+qZrmLbQ==",
-      "dependencies": [
-        "@slickgrid-universal/binding",
-        "@slickgrid-universal/common"
-      ]
-    },
-    "@slickgrid-universal/row-detail-view-plugin@5.14.0": {
-      "integrity": "sha512-xyEr0ucwchqAshuidKhcBPDrw/jwtGxUbQJg28W1LiMD+vQbsF5LlGiIB53lfBGniC34lHWiX1B/RI3Z9z0kXA==",
+    "@slickgrid-universal/graphql@9.0.0": {
+      "integrity": "sha512-wHKJJvxTy5KRHN08ZSPdM/++saLD3LAncuK+amJsRxJxTzv3o+41Qq+GHl1U/UAeRfIz60sZJtt01eLA1pdV/g==",
       "dependencies": [
         "@slickgrid-universal/common",
         "@slickgrid-universal/utils"
       ]
     },
-    "@slickgrid-universal/utils@5.12.0": {
-      "integrity": "sha512-vw5Is2bdY+EjYw8dAJaAW6f+Iir0trwcz43cVI+Cpic9sTC6c7+UP89cvyW1sISN7YsWYRdtJjDT+BW9i6sSwg=="
+    "@slickgrid-universal/pagination-component@9.0.0": {
+      "integrity": "sha512-rmzFFZ7s624hDEfsxrSi4wwel9YhWg/2FsOm/cmQZGSXLqqnl5RktmknYIeaXna6soSyCkThhtQGTyn1Y1NswQ==",
+      "dependencies": [
+        "@slickgrid-universal/binding",
+        "@slickgrid-universal/common"
+      ]
+    },
+    "@slickgrid-universal/row-detail-view-plugin@9.0.0": {
+      "integrity": "sha512-O2dyxYKmcKtazHMqJztyvja8FZS9Z+R6i9YbYMizRb1Lop71+7W64Kgs0ICWJAUFAUYkKJVe3udK21EICNnrhQ==",
+      "dependencies": [
+        "@slickgrid-universal/common",
+        "@slickgrid-universal/utils"
+      ]
+    },
+    "@slickgrid-universal/utils@9.0.0": {
+      "integrity": "sha512-aoJTifn20NLJH/2xhoNK2O9QAS3uoavFMXuOGjzjredI0Db5JpFF2hAGZF3qWMzMsMrSdhu67EdFzy+dCSIpPw=="
     },
     "@standard-schema/utils@0.3.0": {
       "integrity": "sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g=="
@@ -1896,12 +1906,6 @@
         "@rollup/rollup-linux-x64-gnu"
       ]
     },
-    "i18next@23.16.8": {
-      "integrity": "sha512-06r/TitrM88Mg5FdUXAKL96dJMzgqLE5dv3ryBAra4KCwD9mJ4ndOTS95ZuymIGoE+2hzfdaMak2X11/es7ZWg==",
-      "dependencies": [
-        "@babel/runtime"
-      ]
-    },
     "ignore@5.3.2": {
       "integrity": "sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g=="
     },
@@ -2138,8 +2142,8 @@
     "ms@2.1.3": {
       "integrity": "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
     },
-    "multiple-select-vanilla@3.5.0": {
-      "integrity": "sha512-ifIrnWqsRtbE5O8uBUV9/+LeX0CT0yVwYcEzdX8Bwa88nVkACrHEUE1m5JfURPa6+7YRN47b94Hp37N59eow7g==",
+    "multiple-select-vanilla@4.1.4": {
+      "integrity": "sha512-DrBP35eyyD9JnK8vvzPlHP0Ass5KTO/wBX2Hod7Ihr2SPCe2T7ddQ39OgK8Q64Ddou9rNeYINi0g4mWAosCr4g==",
       "dependencies": [
         "@types/trusted-types"
       ]
@@ -2558,8 +2562,8 @@
         "is-fullwidth-code-point@4.0.0"
       ]
     },
-    "slickgrid-react@5.14.1_react@19.1.0": {
-      "integrity": "sha512-ul8XJu6ux+jVj5XPNdAruHFFVAWUa5sRPMCBQexFWcK/AEpl/VWbaW+Cl6xgh2xeKBR9AyvBo3im1E+ujq4lvA==",
+    "slickgrid-react@9.0.0_react@19.1.0": {
+      "integrity": "sha512-NTwgRDX1/RVIaX/ScQxxthMcEhgKe8KYabDaNLRMxUMmrvDTIhUHBVKEGBPqwBqhqNorlLTHlt4fhvu6vF3B1w==",
       "dependencies": [
         "@slickgrid-universal/common",
         "@slickgrid-universal/custom-footer-component",
@@ -2567,8 +2571,8 @@
         "@slickgrid-universal/event-pub-sub",
         "@slickgrid-universal/pagination-component",
         "@slickgrid-universal/row-detail-view-plugin",
+        "@slickgrid-universal/utils",
         "dequal",
-        "i18next",
         "react",
         "sortablejs"
       ]
@@ -2727,9 +2731,6 @@
     "value-or-promise@1.0.12": {
       "integrity": "sha512-Z6Uz+TYwEqE7ZN50gwn+1LCVo9ZVrpxRPOhOLnncYkY1ZzOYtrX8Fwf/rFktZ8R5mJms6EZf5TqNOMeZmnPq9Q=="
     },
-    "vanilla-calendar-pro@2.9.10": {
-      "integrity": "sha512-0yqWqlvitfQSRqjyVVr613whIgp62qC1JHgXyLalcJkNkMRZXRqEr+QQQvRdQavB2PBgB4HW+GM6VU4KU0K3Ng=="
-    },
     "vanilla-calendar-pro@3.0.4": {
       "integrity": "sha512-i13aJsfovlfRGm7zkoxYh9WylkdLVJkjmfZjJms5cb5i/lbnPTBaDQ0J51joC3Q4h66sFpEUjA4bXLAr/OPZ2w=="
     },
@@ -2867,10 +2868,11 @@
         "dependencies": [
           "npm:@hono/react-renderer@^1.0.1",
           "npm:@hookform/resolvers@^5.0.1",
-          "npm:@slickgrid-universal/common@^5.13.4",
+          "npm:@slickgrid-universal/common@9",
+          "npm:@slickgrid-universal/graphql@9",
           "npm:@supabase/ssr@~0.6.1",
           "npm:date-fns@^4.1.0",
-          "npm:slickgrid-react@^5.14.1",
+          "npm:slickgrid-react@9",
           "npm:vanilla-calendar-pro@^3.0.4",
           "npm:zod-form-data@^2.0.7"
         ]
