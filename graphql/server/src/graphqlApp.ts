@@ -4,11 +4,13 @@ import graphqlSchema from "./schemaDefine.ts";
 
 const graphqlApp = new Hono();
 
+const graphiql = Deno.env.get("GRAPHQL_PLAY_GROUND") === "true";
+
 graphqlApp.use(
   "/",
   graphqlServer({
     schema: graphqlSchema,
-    graphiql: true,
+    graphiql,
   }),
 );
 
