@@ -8,7 +8,6 @@
     "@types/react-dom": "npm:@types/react-dom@^19.1.2",
     "hono": "npm:hono@^4.7.9",
     "honox": "npm:honox@^0.1.40",
-    "regenerator-runtime": "npm:regenerator-runtime@^0.14.1",
 
     // frontend と shadcn で共通利用しているライブラリ
     "lucide-react": "npm:lucide-react@^0.509.0",
