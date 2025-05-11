@@ -32,3 +32,11 @@ img {
   -o-user-drag: none;
   user-drag: none;
 }
+
+:root {
+  --slick-header-font-size: 14px;
+  --slick-header-column-height: 20px;
+  --slick-icon-sort-position-top: 4px;
+  --slick-icon-sort-color: #808080;
+  --slick-icon-sort-font-size: 25px
+}

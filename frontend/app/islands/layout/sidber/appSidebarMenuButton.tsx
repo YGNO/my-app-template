@@ -9,7 +9,11 @@ type Props = {
 export function AppSidebarMenuButton({ title, children, href, className, size, ...props }: Props) {
   const { open } = useSidebar();
   const parentHeight =
-    size === undefined || size === null || size === "default" ? "h-8" : size === "lg" ? "h-12" : "h-4";
+    size === undefined || size === null || size === "default"
+      ? "h-8"
+      : size === "lg"
+        ? "h-12"
+        : "h-4";
   return (
     <div className={cn(parentHeight, "w-full relative")}>
       <SidebarMenuButton

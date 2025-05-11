@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { AppSidebarMenuButton } from "@/islands/layout/sidber/appSidebarMenuButton.tsx";
 import {
   Sidebar,
   SidebarContent,
@@ -8,15 +8,15 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@my-app/shadcn";
+import { Calendar, IdCard, Inbox, Search, Settings } from "lucide-react";
 import { AppSidebarTrigger } from "./appSidebarTrigger.tsx";
-import { AppSidebarMenuButton } from "@/islands/layout/sidber/appSidebarMenuButton.tsx";
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "都道府県",
+    url: "/app/prefecture",
+    icon: IdCard,
   },
   {
     title: "Inbox",
@@ -51,7 +51,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <AppSidebarMenuButton title={item.title} href="item.url">
+                  <AppSidebarMenuButton title={item.title} href={item.url}>
                     <item.icon />
                   </AppSidebarMenuButton>
                 </SidebarMenuItem>

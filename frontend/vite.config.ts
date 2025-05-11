@@ -9,7 +9,7 @@ import gqlDenoJson from "../graphql/server/deno.jsonc" with { type: "json" };
 
 export default defineConfig(({ mode }) => {
   // Note: ビルド時にバンドルしないライブラリ、document、window を直接使っている等で、そのままでは deno で実行できないものが対象
-  const notBundle = ["slickgrid-react", "@slickgrid-universal/common"];
+  const notBundle = ["slickgrid-react", "@slickgrid-universal/graphql", "@slickgrid-universal/common"];
 
   let alias = {
     "@": resolve("./app"),

@@ -20,7 +20,7 @@ export const POST = createRoute(async (c) => {
   }
 
   // FIXME: トップ画面に遷移させる
-  return c.redirect("/app/gridSample");
+  return c.redirect("/app/prefecture");
 });
 
 export default createRoute((c) => {
