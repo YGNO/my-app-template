@@ -34,7 +34,7 @@ img {
   user-drag: none;
 }
 
-:root {
+div[id^="Slickgrid"] {
   --slick-header-font-size: 14px;
   --slick-header-column-height: 20px;
   --slick-icon-sort-position-top: 4px;

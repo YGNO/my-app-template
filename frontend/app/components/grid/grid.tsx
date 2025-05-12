@@ -30,6 +30,7 @@ export interface GridHandle<DATA> {
 
 const loading = <div>Loading</div>;
 
+const CONTAINER_ID_PREFIX = "Slickgrid";
 const Grid = <DATA,>(
   { id, column, options }: GridProps,
   ref: React.Ref<GridHandle<DATA>>,
@@ -37,9 +38,11 @@ const Grid = <DATA,>(
   const [mounded, setMounded] = useState(false);
   const [gridInstance, setGridInstance] = useState<SlickgridReactInstance>();
   const [dataset, setDataset] = useState<DATA[]>([]);
+  const [containerId, setContainerId] = useState<string>();
 
   useEffect(() => {
     setMounded(true);
+    setContainerId(`${CONTAINER_ID_PREFIX}_${self.crypto.randomUUID()}`);
   }, []);
 
   useImperativeHandle(ref, () => ({
@@ -47,19 +50,21 @@ const Grid = <DATA,>(
     setDataset,
   }));
 
-  if (!mounded) {
+  if (!mounded || !containerId) {
     return loading;
   }
 
   return (
     <Suspense fallback={loading}>
-      <SlickgridReact
-        gridId={id}
-        columns={column}
-        options={options}
-        dataset={dataset}
-        onReactGridCreated={($event) => setGridInstance($event.detail)}
-      />
+      <div id={containerId}>
+        <SlickgridReact
+          gridId={id}
+          columns={column}
+          options={options}
+          dataset={dataset}
+          onReactGridCreated={($event) => setGridInstance($event.detail)}
+        />
+      </div>
     </Suspense>
   );
 };

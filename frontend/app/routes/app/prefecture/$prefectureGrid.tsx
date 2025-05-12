@@ -1,9 +1,11 @@
+import { editActionColumn } from "@/components/grid/columnDef.ts";
 import Grid, { type GridHandle } from "@/components/grid/grid.tsx";
 import { buildGridDataFetcher } from "@/components/grid/gridDataFetcher.ts";
 import { SlickgridContext, SlickgridProvider } from "@/components/grid/slickgridProvider.tsx";
-import type { Column, GridOption } from "@slickgrid-universal/common";
+import type { Column, GridOption, IFormatters } from "@slickgrid-universal/common";
 import type { GraphqlServiceApi } from "@slickgrid-universal/graphql";
-import { useContext, useRef } from "react";
+import { type Dispatch, type SetStateAction, useContext, useRef, useState } from "react";
+import { PrefectureForm } from "./$prefectureForm.tsx";
 
 type PrefectureGridData = {
   code: number;
@@ -12,9 +14,14 @@ type PrefectureGridData = {
   nameAlpha: string;
 };
 
-const getColumnDef = (): Column[] => {
+const getColumnDef = (formatters: IFormatters, formOpen: Dispatch<SetStateAction<boolean>>): Column[] => {
   /** id, field は GraphQL のクエリと一致させる必要があるので注意 */
   return [
+    editActionColumn(formatters, {
+      onClick() {
+        formOpen(true);
+      },
+    }),
     {
       id: "code",
       name: "コード",
@@ -70,9 +77,10 @@ const getGridOption = (backendServiceApi: GraphqlServiceApi): GridOption => {
 
 const WrapedGrid: React.FC = () => {
   const gridRef = useRef<GridHandle<PrefectureGridData>>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
-  const { graphqlService } = useContext(SlickgridContext);
-  if (!graphqlService) {
+  const { graphqlService, formatters } = useContext(SlickgridContext);
+  if (!graphqlService || !formatters) {
     return <div />;
   }
 
@@ -94,7 +102,14 @@ const WrapedGrid: React.FC = () => {
     }),
   );
 
-  return <Grid id="prefectureGrid" column={getColumnDef()} options={gridOption} ref={gridRef} />;
+  const columnDef = getColumnDef(formatters, setOpen);
+
+  return (
+    <>
+      <PrefectureForm open={open} onClose={() => setOpen(false)} />
+      <Grid id="prefectureGrid" column={columnDef} options={gridOption} ref={gridRef} />
+    </>
+  );
 };
 
 const PrefectureGrid: React.FC = () => {
