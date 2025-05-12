@@ -1,5 +1,6 @@
 import {
-  type ForwardRefRenderFunction,
+  type Dispatch,
+  type SetStateAction,
   Suspense,
   forwardRef,
   lazy,
@@ -16,30 +17,34 @@ const SlickgridReact = lazy(async () => {
   };
 });
 
-interface GridProps<DATA> {
+interface GridProps {
   id?: string;
   column: Column[];
   options?: GridOption;
-  data: DATA[];
 }
 
-export interface GridHandle {
-  getGridInstance: () => SlickgridReactInstance | undefined;
+export interface GridHandle<DATA> {
+  gridInstance: SlickgridReactInstance | undefined;
+  setDataset: Dispatch<SetStateAction<DATA[]>>;
 }
-
-interface ForwardGridRefFunction<DATA = unknown> extends ForwardRefRenderFunction<GridHandle, GridProps<DATA>> {}
 
 const loading = <div>Loading</div>;
 
-const Grid: ForwardGridRefFunction = ({ id, column, options, data }, ref) => {
+const Grid = <DATA,>(
+  { id, column, options }: GridProps,
+  ref: React.Ref<GridHandle<DATA>>,
+): React.ReactElement | null => {
   const [mounded, setMounded] = useState(false);
   const [gridInstance, setGridInstance] = useState<SlickgridReactInstance>();
+  const [dataset, setDataset] = useState<DATA[]>([]);
+
   useEffect(() => {
     setMounded(true);
   }, []);
 
   useImperativeHandle(ref, () => ({
-    getGridInstance: () => gridInstance,
+    gridInstance,
+    setDataset,
   }));
 
   if (!mounded) {
@@ -52,7 +57,7 @@ const Grid: ForwardGridRefFunction = ({ id, column, options, data }, ref) => {
         gridId={id}
         columns={column}
         options={options}
-        dataset={data}
+        dataset={dataset}
         onReactGridCreated={($event) => setGridInstance($event.detail)}
       />
     </Suspense>
@@ -60,4 +65,6 @@ const Grid: ForwardGridRefFunction = ({ id, column, options, data }, ref) => {
 };
 
 Grid.displayName = "Child";
-export default forwardRef(Grid);
+export default forwardRef(Grid) as <DATA>(
+  props: GridProps & { ref?: React.Ref<GridHandle<DATA>> },
+) => React.ReactElement | null;

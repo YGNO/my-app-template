@@ -3,7 +3,7 @@ import { buildGridDataFetcher } from "@/components/grid/gridDataFetcher.ts";
 import { SlickgridContext, SlickgridProvider } from "@/components/grid/slickgridProvider.tsx";
 import type { Column, GridOption } from "@slickgrid-universal/common";
 import type { GraphqlServiceApi } from "@slickgrid-universal/graphql";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 
 type PrefectureGridData = {
   code: number;
@@ -69,8 +69,7 @@ const getGridOption = (backendServiceApi: GraphqlServiceApi): GridOption => {
 };
 
 const WrapedGrid: React.FC = () => {
-  const gridRef = useRef<GridHandle>(null);
-  const [dataset, setDataset] = useState<PrefectureGridData[]>([]);
+  const gridRef = useRef<GridHandle<PrefectureGridData>>(null);
 
   const { graphqlService } = useContext(SlickgridContext);
   if (!graphqlService) {
@@ -86,16 +85,16 @@ const WrapedGrid: React.FC = () => {
           return;
         }
         if (infiniteScrollBottomHit) {
-          gridRef.current.getGridInstance()?.dataView?.addItems(data);
+          gridRef.current.gridInstance?.dataView?.addItems(data);
           return;
         }
-        gridRef.current.getGridInstance()?.slickGrid.scrollTo(0);
-        setDataset(data);
+        gridRef.current.gridInstance?.slickGrid.scrollTo(0);
+        gridRef.current.setDataset(data);
       },
     }),
   );
 
-  return <Grid id="prefectureGrid" column={getColumnDef()} options={gridOption} data={dataset} ref={gridRef} />;
+  return <Grid id="prefectureGrid" column={getColumnDef()} options={gridOption} ref={gridRef} />;
 };
 
 const PrefectureGrid: React.FC = () => {
