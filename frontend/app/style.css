@@ -1,4 +1,5 @@
 @import "tailwindcss" source("../app");
+@plugin "@egoist/tailwindcss-icons";
 /**
   tailwindcss を利用しているサブモジュールにパスを通す
   FIXME: 相対パスではなくエイリアスで指定する方法を検討する

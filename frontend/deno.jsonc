@@ -10,8 +10,11 @@
   "exclude": ["dist"],
   "imports": {
     "@/": "./app/",
+    "@egoist/tailwindcss-icons": "npm:@egoist/tailwindcss-icons@^1.9.0",
     "@hono/react-renderer": "npm:@hono/react-renderer@^1.0.1",
     "@hookform/resolvers": "npm:@hookform/resolvers@^5.0.1",
+    "@iconify-json/mdi": "npm:@iconify-json/mdi@^1.2.3",
+    "@iconify-json/lucide": "@iconify-json/lucide@^1.2.42",
     "@slickgrid-universal/common": "npm:@slickgrid-universal/common@^9.0.3",
     "@slickgrid-universal/graphql": "npm:@slickgrid-universal/graphql@^9.0.3",
     "@supabase/ssr": "npm:@supabase/ssr@^0.6.1",
