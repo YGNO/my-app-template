@@ -52,6 +52,10 @@ tasks:
     cmds:
       - deno task add:shadcn {{.CLI_ARGS}}
 
+  mw-install:
+    cmds:
+      - deno install --allow-scripts
+
   mw-update:
     cmds:
       - deno task --recursive mw:update
