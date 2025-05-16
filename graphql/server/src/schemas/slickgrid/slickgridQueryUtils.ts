@@ -4,23 +4,33 @@ import type { PgColumn, PgSelect } from "drizzle-orm/pg-core";
 import type { SchemaBuilderType, SchemaType } from "../../schemaDefine.ts";
 import type { GqlSchema } from "../../utils/schemaUtils.ts";
 
-type Direction = "ASC" | "DESC" | "asc" | "desc";
-const registerOrder = <Field extends string>(name: string, fields: readonly Field[], sb: SchemaBuilderType) => {
-  const field = sb.enumType(`${name}_order_fields`, { values: fields });
-  const direction = sb.enumType(`${name}_direction`, {
-    values: ["ASC", "DESC", "asc", "desc"],
-  });
-
-  return sb.inputType(`${name}_order`, {
-    fields: (fb) => ({
-      field: fb.field({ type: field, required: true }),
-      direction: fb.field({ type: direction, required: true }),
-    }),
-  });
+/** Slickgrid のデータ取得で使用する Enum 定義 */
+export const SlickgridEnum = {
+  SlickgridDirection: ["ASC", "DESC", "asc", "desc"] as const,
+  // https://ghiscoding.gitbook.io/slickgrid-react/backend-services/graphql/graphql-filtering#filterby
+  SlickgridOperator: [
+    "Contains",
+    "Not_Contains",
+    "LT",
+    "LE",
+    "GT",
+    "GE",
+    "NE",
+    "EQ",
+    "StartsWith",
+    "EndsWith",
+    "IN",
+    "NOT_IN",
+  ] as const,
 };
+type Direction = (typeof SlickgridEnum.SlickgridDirection)[number];
+type Operator = (typeof SlickgridEnum.SlickgridOperator)[number];
 
 export const SLICKGRID_FILTER_VALUE = "SlickgridFilterValue";
-// TODO: 必要であれば、随時追加する
+/**
+ * Slickgrid の絞り込み条件で指定できる値
+ * Note: カスタムした値を設定できるので、必要に応じて追加する
+ */
 type SlickgridFilterValueType = string | number | Array<unknown>;
 export type SlickgridFilterValue = {
   SlickgridFilterValue: {
@@ -38,38 +48,29 @@ export const SlickgridFilterResolver = {
   },
 };
 
-type Operator =
-  | "Contains"
-  | "Not_Contains"
-  | "LT"
-  | "LE"
-  | "GT"
-  | "GE"
-  | "NE"
-  | "EQ"
-  | "StartsWith"
-  | "EndsWith"
-  | "IN"
-  | "NIN";
-const registerFilter = <Field extends string>(name: string, fields: readonly Field[], sb: SchemaBuilderType) => {
-  const field = sb.enumType(`${name}_filter_fields`, { values: fields });
-
-  // https://ghiscoding.gitbook.io/slickgrid-react/backend-services/graphql/graphql-filtering#filterby
-  const operator = sb.enumType(`${name}_operator`, {
-    values: ["Contains", "Not_Contains", "LT", "LE", "GT", "NE", "EQ", "StartsWith", "EndsWith", "IN", "NOT_IN"],
+const registerOrder = <Field extends string>(sb: SchemaBuilderType, name: string, fields: readonly Field[]) => {
+  const field = sb.enumType(`${name}_order_fields`, { values: fields });
+  return sb.inputType(`${name}_order`, {
+    fields: (fb) => ({
+      field: fb.field({ type: field, required: true }),
+      direction: fb.field({ type: "SlickgridDirection", required: true }),
+    }),
   });
+};
 
+const registerFilter = <Field extends string>(sb: SchemaBuilderType, name: string, fields: readonly Field[]) => {
+  const field = sb.enumType(`${name}_filter_fields`, { values: fields });
   return sb.inputType(`${name}_filter`, {
     fields: (fb) => ({
       field: fb.field({ type: field, required: true }),
-      operator: fb.field({ type: operator, required: true }),
+      operator: fb.field({ type: "SlickgridOperator", required: true }),
       value: fb.field({ type: SLICKGRID_FILTER_VALUE, required: true }),
     }),
   });
 };
 
 type QueryResult<Row extends Record<string, unknown>> = { totalCount: number; nodes: Row[] };
-const registerQueryResult = <Field extends string>(name: string, fields: readonly Field[], sb: SchemaBuilderType) => {
+const registerQueryResult = <Field extends string>(sb: SchemaBuilderType, name: string, fields: readonly Field[]) => {
   type Row = { [K in Field]: unknown };
   // 列一覧からノードのオブジェクトを生成する
   const node = sb.objectRef<Row>(`${name}_query_node`);
@@ -121,7 +122,7 @@ export const registerGridQuery = <Field extends string>({
   name,
   fields,
   resolve,
-  builder,
+  builder: sb,
 }: {
   name: string;
   fields: readonly Field[];
@@ -129,12 +130,12 @@ export const registerGridQuery = <Field extends string>({
   resolve: (args: QueryArgs<Field>) => Promise<QueryResult<{ [K in Field]: unknown }>>;
   builder: SchemaBuilderType;
 }) => {
-  const order = registerOrder(name, fields, builder);
-  const filter = registerFilter(name, fields, builder);
-  const result = registerQueryResult(name, fields, builder);
+  const order = registerOrder(sb, name, fields);
+  const filter = registerFilter(sb, name, fields);
+  const result = registerQueryResult(sb, name, fields);
 
   return {
-    queries: (_, qb) => ({
+    queries: (qb) => ({
       [name]: qb.field({
         type: result,
         args: {
@@ -239,7 +240,7 @@ const arrayFilter = <Field extends string>(field: Field, operator: Operator, val
   switch (operator) {
     case "IN":
       return inArray(f, value);
-    case "NIN":
+    case "NOT_IN":
       return notInArray(f, value);
     default:
       throw Error(`invalid operator(field:${field}, operator:${operator})`);

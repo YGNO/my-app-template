@@ -3,15 +3,15 @@ import { eq, inArray } from "drizzle-orm";
 import type { GqlSchema } from "../utils/schemaUtils.ts";
 import { groupByIds } from "../utils/sqlUtils.ts";
 
-const prefecture: GqlSchema<typeof dbSchema.prefecture.$inferSelect> = {
-  queries: ({ prefecture }, qb) => ({
+const prefecture: GqlSchema<"prefecture"> = {
+  queries: (qb) => ({
     prefectures: qb.field({
-      type: [prefecture],
+      type: ["prefecture"],
       resolve: findMany,
     }),
 
     prefecture: qb.field({
-      type: prefecture,
+      type: "prefecture",
       args: {
         code: qb.arg.int({ required: true }),
       },
@@ -19,11 +19,11 @@ const prefecture: GqlSchema<typeof dbSchema.prefecture.$inferSelect> = {
     }),
   }),
 
-  relations: ({ prefecture, municipality }, set) => {
-    set(prefecture, {
+  relations: (set) => {
+    set("prefecture", {
       municipalitis: (fb) =>
         fb.loadableList({
-          type: municipality,
+          type: "municipality",
           resolve: (prefecture) => prefecture.code,
           load: findMunicipalities,
         }),

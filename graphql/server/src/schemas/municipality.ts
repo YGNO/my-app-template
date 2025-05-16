@@ -2,15 +2,15 @@ import { dbClient, dbSchema } from "@my-app/db-client";
 import { eq } from "drizzle-orm";
 import type { GqlSchema } from "../utils/schemaUtils.ts";
 
-const municipality: GqlSchema<typeof dbSchema.municipality.$inferSelect> = {
-  queries: ({ municipality }, qb) => ({
+const municipality: GqlSchema<"municipality"> = {
+  queries: (qb) => ({
     municipalities: qb.field({
-      type: [municipality],
+      type: ["municipality"],
       resolve: findMany,
     }),
 
     municipality: qb.field({
-      type: municipality,
+      type: "municipality",
       args: {
         code: qb.arg.int({ required: true }),
       },

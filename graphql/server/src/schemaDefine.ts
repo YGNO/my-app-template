@@ -8,49 +8,69 @@ import { DateResolver, JSONResolver } from "graphql-scalars";
 import municipality from "./schemas/municipality.ts";
 import prefecture from "./schemas/prefecture.ts";
 import { prefectureTable } from "./schemas/slickgrid/prefectureTable.ts";
-import type { SlickgridFilterValue } from "./schemas/slickgrid/slickgridQueryUtils.ts";
-import { SLICKGRID_FILTER_VALUE, SlickgridFilterResolver } from "./schemas/slickgrid/slickgridQueryUtils.ts";
-import { registerSchema, toPothos } from "./utils/schemaUtils.ts";
+import {
+  SLICKGRID_FILTER_VALUE,
+  SlickgridFilterResolver,
+  type SlickgridFilterValue,
+} from "./schemas/slickgrid/slickgridQueryUtils.ts";
+import { SlickgridEnum } from "./schemas/slickgrid/slickgridQueryUtils.ts";
+import { registerSchema } from "./utils/schemaUtils.ts";
 
-type SchemaBuilderOption = {
+const { entities } = buildSchema(dbClient);
+type ObjectKey = keyof typeof dbSchema;
+export type SchemaType = PothosSchemaTypes.ExtendDefaultTypes<{
+  // 共通で利用する型をグローバルに登録しておく
   Scalars: SlickgridFilterValue & {
     JSON: { Input: unknown; Output: unknown };
     Date: { Input: Date; Output: Date };
   };
-};
-export type SchemaType = PothosSchemaTypes.ExtendDefaultTypes<SchemaBuilderOption>;
-export type SchemaBuilderType = PothosSchemaTypes.SchemaBuilder<SchemaType>;
-const builder = new SchemaBuilder<SchemaBuilderOption>({
+  Inputs: {
+    [K in keyof typeof SlickgridEnum]: (typeof SlickgridEnum)[K][number];
+  };
+  /**
+   * drizzle で生成したスキーマ情報を pothos のオブジェクトにとして定義し、後続処理で実態の追加を行う
+   *
+   * Note: pothos には drizzle プラグインが存在するが、クエリビルダーとしての独立性を重視したいので、このプラグインは使用しない
+   * https://pothos-graphql.dev/docs/plugins/drizzle
+   */
+  Objects: { [K in ObjectKey]: (typeof dbSchema)[K]["$inferInsert"] };
+}>;
+const schemaBuilder = new SchemaBuilder<SchemaType>({
   plugins: [AddGraphQLPlugin, DataloaderPlugin],
 });
 
-((sb) => {
-  // graphql に登録する Scalar の一覧を定義
-  sb.addScalarType("JSON", JSONResolver);
-  sb.addScalarType("Date", DateResolver);
-  sb.scalarType(SLICKGRID_FILTER_VALUE, SlickgridFilterResolver);
-})(builder);
+export type SchemaBuilderType = typeof schemaBuilder;
 
-const objectMap = ((sb) => {
-  const { entities } = buildSchema(dbClient);
-  const t = entities.types;
-  return {
-    // graphql に登録するオブジェクトの一覧を定義
-    prefecture: toPothos(sb, dbSchema.prefecture, t.PrefectureItem),
-    municipality: toPothos(sb, dbSchema.municipality, t.MunicipalityItem),
-  };
-})(builder);
-export type ObjectMap = typeof objectMap;
+// 共通 Scalar を定義
+schemaBuilder.addScalarType("JSON", JSONResolver);
+schemaBuilder.addScalarType("Date", DateResolver);
+schemaBuilder.scalarType(SLICKGRID_FILTER_VALUE, SlickgridFilterResolver);
 
-((sb, objects) => {
-  registerSchema(sb, objects, [
-    // graphql に登録するスキーマの一覧を定義
-    prefecture,
-    municipality,
-    prefectureTable(sb),
-  ]);
-})(builder, objectMap);
+// 共通 Enum を登録
+for (const [name, values] of Object.entries(SlickgridEnum)) {
+  schemaBuilder.enumType(name, { values });
+}
 
-const graphqlSchema = builder.toSchema();
+// SchemaType で定義したオブジェクトを実装する
+// Note: drizzle-graphql が生成したオブジェクトを実装として利用する
+// const { entities } = buildSchema(dbClient);
+const tabeleNameList = Object.keys(dbSchema) as ObjectKey[];
+for (const tableName of tabeleNameList) {
+  // drizzle-graphql のプロパティ名でオブジェクトを取得する
+  const itemName =
+    `${tableName.charAt(0).toUpperCase()}${tableName.slice(1)}Item` as `${Capitalize<typeof tableName>}Item`;
+  schemaBuilder.addGraphQLObject(entities.types[itemName], {
+    name: tableName, // SchemaType で定義した型と名前を合わせる
+  });
+}
+
+registerSchema(schemaBuilder, [
+  // graphql に登録するスキーマの一覧を定義
+  prefecture,
+  municipality,
+  prefectureTable(schemaBuilder),
+]);
+
+const graphqlSchema = schemaBuilder.toSchema();
 export default graphqlSchema;
 export const graphqlSchemaString = printSchema(graphqlSchema);
