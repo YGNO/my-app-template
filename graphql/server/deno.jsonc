@@ -3,6 +3,9 @@
   "exports": {
     ".": "./mod.ts"
   },
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
   "imports": {
     "@hono/graphql-server": "npm:@hono/graphql-server@^0.5.1",
     "@pothos/core": "npm:@pothos/core@^4.6.2",

@@ -1,9 +1,9 @@
 import { dbClient, dbSchema } from "@my-app/db-client";
 import { eq, inArray } from "drizzle-orm";
-import type { GqlSchema } from "../utils/schemaUtils.ts";
+import { gqlDomain } from "../utils/gqlDomain.ts";
 import { groupByIds } from "../utils/sqlUtils.ts";
 
-const prefecture: GqlSchema<"prefecture"> = {
+export default gqlDomain<"prefecture">(() => ({
   queries: (qb) => ({
     prefectures: qb.field({
       type: ["prefecture"],
@@ -29,9 +29,7 @@ const prefecture: GqlSchema<"prefecture"> = {
         }),
     });
   },
-};
-
-export default prefecture;
+}));
 
 const findMany = async () => {
   const prefs = await dbClient.select().from(dbSchema.prefecture);

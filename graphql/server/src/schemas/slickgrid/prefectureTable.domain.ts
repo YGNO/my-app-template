@@ -1,15 +1,13 @@
 import { dbClient, dbSchema } from "@my-app/db-client";
 import { count, sql } from "drizzle-orm";
-import type { SchemaBuilderType } from "../../schemaDefine.ts";
-import { registerGridQuery, setFilterOption, setPagination } from "./slickgridQueryUtils.ts";
+import { gqlDomain } from "../../utils/gqlDomain.ts";
+import { gridQuery, setFilterOption, setPagination } from "./slickgridQueryUtils.ts";
 
-type Field = "code" | "name" | "nameKana" | "nameAlpha";
-const fields: readonly Field[] = ["code", "name", "nameKana", "nameAlpha"];
-export const prefectureTable = (builder: SchemaBuilderType) => {
-  return registerGridQuery({
-    name: "PrefectureTable",
-    fields,
+export default gqlDomain((builder) =>
+  gridQuery({
     builder,
+    queryName: "PrefectureTable",
+    fields: ["code", "name", "nameKana", "nameAlpha"],
     async resolve(args) {
       const prefecture = dbSchema.prefecture;
       const baseSql = dbClient
@@ -34,5 +32,5 @@ export const prefectureTable = (builder: SchemaBuilderType) => {
 
       return { totalCount, nodes };
     },
-  });
-};
+  }),
+);

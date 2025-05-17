@@ -5,16 +5,13 @@ import DataloaderPlugin from "@pothos/plugin-dataloader";
 import { buildSchema } from "drizzle-graphql";
 import { printSchema } from "graphql";
 import { DateResolver, JSONResolver } from "graphql-scalars";
-import municipality from "./schemas/municipality.ts";
-import prefecture from "./schemas/prefecture.ts";
-import { prefectureTable } from "./schemas/slickgrid/prefectureTable.ts";
 import {
   SLICKGRID_FILTER_VALUE,
   SlickgridFilterResolver,
   type SlickgridFilterValue,
 } from "./schemas/slickgrid/slickgridQueryUtils.ts";
 import { SlickgridEnum } from "./schemas/slickgrid/slickgridQueryUtils.ts";
-import { registerSchema } from "./utils/schemaUtils.ts";
+import { buildGqlDomain } from "./utils/gqlDomain.ts";
 
 const { entities } = buildSchema(dbClient);
 type ObjectKey = keyof typeof dbSchema;
@@ -64,12 +61,8 @@ for (const tableName of tabeleNameList) {
   });
 }
 
-registerSchema(schemaBuilder, [
-  // graphql に登録するスキーマの一覧を定義
-  prefecture,
-  municipality,
-  prefectureTable(schemaBuilder),
-]);
+// 必ず schemaBuilder に共通オブジェクトを定義してから実行すること
+await buildGqlDomain(schemaBuilder);
 
 const graphqlSchema = schemaBuilder.toSchema();
 export default graphqlSchema;

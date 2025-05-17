@@ -1,8 +1,8 @@
 import { dbClient, dbSchema } from "@my-app/db-client";
 import { eq } from "drizzle-orm";
-import type { GqlSchema } from "../utils/schemaUtils.ts";
+import { gqlDomain } from "../utils/gqlDomain.ts";
 
-const municipality: GqlSchema<"municipality"> = {
+export default gqlDomain<"municipality">(() => ({
   queries: (qb) => ({
     municipalities: qb.field({
       type: ["municipality"],
@@ -17,9 +17,7 @@ const municipality: GqlSchema<"municipality"> = {
       resolve: (_, { code }) => findSingle(code),
     }),
   }),
-};
-
-export default municipality;
+}));
 
 const findMany = async () => {
   const prefs = await dbClient.select().from(dbSchema.municipality);

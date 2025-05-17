@@ -2,7 +2,7 @@ import type { FieldRef } from "@pothos/core";
 import { type SQL, and, eq, gt, gte, inArray, like, lt, lte, ne, notInArray, notLike, sql } from "drizzle-orm";
 import type { PgColumn, PgSelect } from "drizzle-orm/pg-core";
 import type { SchemaBuilderType, SchemaType } from "../../schemaDefine.ts";
-import type { GqlSchema } from "../../utils/schemaUtils.ts";
+import type { GqlDomain } from "../../utils/gqlDomain.ts";
 
 /** Slickgrid のデータ取得で使用する Enum 定義 */
 export const SlickgridEnum = {
@@ -113,18 +113,14 @@ type QueryArgs<Field extends string> = PaginationOption<Field> & FilterOption<Fi
 
 /**
  * slickgrid 用のクエリを登録する
- * @param name クエリ名
- * @param fields フィールド一覧
- * @param resolve クエリのリゾルバ
- * @returns
  */
-export const registerGridQuery = <Field extends string>({
-  name,
+export const gridQuery = <Field extends string>({
+  queryName: name,
   fields,
   resolve,
   builder: sb,
 }: {
-  name: string;
+  queryName: string;
   fields: readonly Field[];
   // Note: リゾルバーで返されるオブジェクトは プロパティ名 の有無のみチェックできてばよいので、値は unknown にしてしまう
   resolve: (args: QueryArgs<Field>) => Promise<QueryResult<{ [K in Field]: unknown }>>;
@@ -147,7 +143,7 @@ export const registerGridQuery = <Field extends string>({
         resolve: (_, args) => resolve(args as QueryArgs<Field>),
       }),
     }),
-  } as GqlSchema<QueryResult<{ [K in Field]: unknown }>>;
+  } as GqlDomain<QueryResult<{ [K in Field]: unknown }>>;
 };
 
 /** 指定されたSQLステートメントにページング用のオプションを連結する  */
