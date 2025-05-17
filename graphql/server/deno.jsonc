@@ -11,6 +11,7 @@
     "@pothos/core": "npm:@pothos/core@^4.6.2",
     "@pothos/plugin-add-graphql": "npm:@pothos/plugin-add-graphql@^4.2.3",
     "@pothos/plugin-dataloader": "npm:@pothos/plugin-dataloader@^4.4.1",
+    "@pothos/plugin-zod": "npm:@pothos/plugin-zod@^4.2.1",
     "drizzle-orm": "npm:drizzle-orm@^0.43.1",
     "drizzle-graphql": "npm:drizzle-graphql@^0.8.5",
     "graphql": "npm:graphql@^16.11.0",

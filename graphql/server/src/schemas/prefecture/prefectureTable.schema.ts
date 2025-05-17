@@ -1,8 +1,8 @@
 import { dbClient, dbSchema } from "@my-app/db-client";
 import { count, sql } from "drizzle-orm";
-import { gqlDomain } from "../utils/gqlDomain.ts";
-import { gridQuery } from "../utils/gridQuery.ts";
-import { setFilterOption, setPagination } from "../utils/gridSqlUtils.ts";
+import { gqlDomain } from "../../utils/gqlDomain.ts";
+import { gridQuery } from "../../utils/gridQuery.ts";
+import { setFilterOption, setPagination } from "../../utils/gridSqlUtils.ts";
 
 export default gqlDomain((builder) =>
   gridQuery({

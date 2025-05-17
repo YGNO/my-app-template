@@ -2,6 +2,7 @@ import { dbClient, dbSchema } from "@my-app/db-client";
 import SchemaBuilder from "@pothos/core";
 import AddGraphQLPlugin from "@pothos/plugin-add-graphql";
 import DataloaderPlugin from "@pothos/plugin-dataloader";
+import ZodPlugin from "@pothos/plugin-zod";
 import { buildSchema } from "drizzle-graphql";
 import { printSchema } from "graphql";
 import { DateResolver, JSONResolver } from "graphql-scalars";
@@ -33,7 +34,12 @@ export type SchemaType = PothosSchemaTypes.ExtendDefaultTypes<{
   Objects: { [K in ObjectKey]: (typeof dbSchema)[K]["$inferInsert"] };
 }>;
 const schemaBuilder = new SchemaBuilder<SchemaType>({
-  plugins: [AddGraphQLPlugin, DataloaderPlugin],
+  plugins: [AddGraphQLPlugin, DataloaderPlugin, ZodPlugin],
+  zod: {
+    validationError: (zodError, _args, _context, _info) => {
+      return zodError;
+    },
+  },
 });
 
 export type SchemaBuilderType = typeof schemaBuilder;
