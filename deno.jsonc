@@ -6,17 +6,17 @@
     "@types/node": "npm:@types/node@^22.15.18",
     "@types/react": "npm:@types/react@^19.1.4",
     "@types/react-dom": "npm:@types/react-dom@^19.1.5",
-    "hono": "npm:hono@^4.7.9",
+    "hono": "npm:hono@^4.7.10",
     "honox": "npm:honox@^0.1.40",
 
     // frontend と shadcn で共通利用しているライブラリ
     "lucide-react": "npm:lucide-react@^0.511.0",
     "react": "npm:react@^19.1.0",
     "react-dom": "npm:react-dom@^19.1.0",
-    "react-hook-form": "npm:react-hook-form@^7.56.3",
+    "react-hook-form": "npm:react-hook-form@^7.56.4",
     "tailwind-merge": "npm:tailwind-merge@^3.3.0",
     "tailwindcss": "npm:tailwindcss@^4.1.7",
-    "tw-animate-css": "npm:tw-animate-css@^1.2.9",
+    "tw-animate-css": "npm:tw-animate-css@^1.3.0",
     "vite": "npm:vite@^6.3.2",
     "zod": "npm:zod@^3.24.4"
   },
