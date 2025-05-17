@@ -56,7 +56,6 @@ for (const [name, values] of Object.entries(SlickgridEnum)) {
 
 // SchemaType で定義したオブジェクトを実装する
 // Note: drizzle-graphql が生成したオブジェクトを実装として利用する
-// const { entities } = buildSchema(dbClient);
 const tabeleNameList = Object.keys(dbSchema) as ObjectKey[];
 for (const tableName of tabeleNameList) {
   // drizzle-graphql のプロパティ名でオブジェクトを取得する
