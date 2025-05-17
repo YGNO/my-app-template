@@ -1,4 +1,4 @@
-import type { FieldRef, GenericFieldRef, ObjectFieldThunk, QueryFieldsShape } from "@pothos/core";
+import type { FieldRef, GenericFieldRef, MutationFieldsShape, ObjectFieldThunk, QueryFieldsShape } from "@pothos/core";
 import type { SchemaBuilderType, SchemaType } from "../schemaDefine.ts";
 
 type ObjectRef = SchemaType["Objects"];
@@ -11,6 +11,13 @@ type SetQueries<RtuenType> = (qb: Parameters<QueryFieldsShape<SchemaType>>[0]) =
 type AnySetQueries =
   | SetQueries<ObjectRef[ObjectRefKey] | readonly ObjectRef[ObjectRefKey][]>
   | SetQueries<AnyObject | readonly AnyObject[]>;
+
+type SetMutations<RtuenType> = (mb: Parameters<MutationFieldsShape<SchemaType>>[0]) => {
+  [mutationName: string]: FieldRef<SchemaType, RtuenType | number | boolean | null | undefined, "Mutation">;
+};
+type AnySetMutations =
+  | SetMutations<ObjectRef[ObjectRefKey] | readonly ObjectRef[ObjectRefKey][]>
+  | SetMutations<AnyObject | readonly AnyObject[]>;
 
 type SetRelations<T extends ObjectRefKey | AnyObject> = T extends ObjectRefKey
   ? (set: SetRelation<T, ObjectRef[T]>) => void
@@ -29,6 +36,9 @@ type AnySetRelations = SetRelations<ObjectRefKey | AnyObject>;
  */
 export interface GqlDomain<T extends ObjectRefKey | AnyObject> {
   queries?: T extends ObjectRefKey ? SetQueries<ObjectRef[T] | readonly ObjectRef[T][]> : SetQueries<T | readonly T[]>;
+  mutations?: T extends ObjectRefKey
+    ? SetMutations<ObjectRef[T] | readonly ObjectRef[T][]>
+    : SetMutations<T | readonly T[]>;
   // FIXME: 独自定義オブジェクトの関連設定は未実装
   relations?: T extends ObjectRefKey ? SetRelations<T> : undefined;
 }
@@ -42,7 +52,7 @@ export const gqlDomain = <T extends ObjectRefKey | AnyObject>(builder: GqlDomain
 const loadGqlDomain = async () => {
   // Note: vite でビルドすることを前提に「import.meta.glob」を使用
   //       vite に依存させず、専用のデコレータを実装する方法もあるが、ルールが複雑化するので実装しない
-  const loadFuncs = Object.values(import.meta.glob("../schemas/**/*.domain.ts"));
+  const loadFuncs = Object.values(import.meta.glob("../schemas/**/*.schema.ts"));
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const modules = await Promise.all(loadFuncs.map((fn) => fn() as any));
   return modules.map((m) => m.default as GqlDomainBuilder<ObjectRefKey | AnyObject>);
@@ -56,10 +66,12 @@ const loadGqlDomain = async () => {
 export const buildGqlDomain = async (sb: SchemaBuilderType) => {
   const builders = await loadGqlDomain();
   const queriesDef: AnySetQueries[] = [];
+  const mutationsDef: AnySetMutations[] = [];
   const relationsDef: AnySetRelations[] = [];
   for (const domainBuilder of builders) {
-    const { queries, relations } = domainBuilder(sb);
+    const { queries, mutations, relations } = domainBuilder(sb);
     queries && queriesDef.push(queries);
+    mutations && mutationsDef.push(mutations);
     relations && relationsDef.push(relations);
   }
 
@@ -69,12 +81,18 @@ export const buildGqlDomain = async (sb: SchemaBuilderType) => {
     },
   });
 
+  sb.mutationType({
+    fields: (mb) => {
+      return Object.assign({}, ...mutationsDef.map((fn) => fn(mb)));
+    },
+  });
+
   relationsDef.forEach((fn) =>
-    fn((object, relations) => {
+    fn((objectType, relations) => {
       // FIXME: 独自定義オブジェクトの関連設定は未実装
-      if (typeof object === "string") {
+      if (typeof objectType === "string") {
         Object.entries(relations).forEach(([relationName, relation]) => {
-          sb.objectField(object, relationName, relation);
+          sb.objectField(objectType, relationName, relation);
         });
       }
     }),

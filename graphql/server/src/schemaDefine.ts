@@ -5,13 +5,13 @@ import DataloaderPlugin from "@pothos/plugin-dataloader";
 import { buildSchema } from "drizzle-graphql";
 import { printSchema } from "graphql";
 import { DateResolver, JSONResolver } from "graphql-scalars";
+import { buildGqlDomain } from "./utils/gqlDomain.ts";
 import {
   SLICKGRID_FILTER_VALUE,
+  SlickgridEnum,
   SlickgridFilterResolver,
   type SlickgridFilterValue,
-} from "./schemas/slickgrid/slickgridQueryUtils.ts";
-import { SlickgridEnum } from "./schemas/slickgrid/slickgridQueryUtils.ts";
-import { buildGqlDomain } from "./utils/gqlDomain.ts";
+} from "./utils/gridQuery.ts";
 
 const { entities } = buildSchema(dbClient);
 type ObjectKey = keyof typeof dbSchema;
