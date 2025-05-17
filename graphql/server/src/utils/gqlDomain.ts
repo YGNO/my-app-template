@@ -1,18 +1,18 @@
-import type { FieldRef, GenericFieldRef, MutationFieldsShape, ObjectFieldThunk, QueryFieldsShape } from "@pothos/core";
+import type { FieldRef, GenericFieldRef } from "@pothos/core";
 import type { SchemaBuilderType, SchemaType } from "../schemaDefine.ts";
 
 type ObjectRef = SchemaType["Objects"];
 type ObjectRefKey = keyof SchemaType["Objects"];
 type AnyObject = { [k: string]: unknown };
 
-type SetQueries<RtuenType> = (qb: Parameters<QueryFieldsShape<SchemaType>>[0]) => {
+type SetQueries<RtuenType> = (qb: PothosSchemaTypes.QueryFieldBuilder<SchemaType, SchemaType["Root"]>) => {
   [queryName: string]: FieldRef<SchemaType, RtuenType | null | undefined, "Query">;
 };
 type AnySetQueries =
   | SetQueries<ObjectRef[ObjectRefKey] | readonly ObjectRef[ObjectRefKey][]>
   | SetQueries<AnyObject | readonly AnyObject[]>;
 
-type SetMutations<RtuenType> = (mb: Parameters<MutationFieldsShape<SchemaType>>[0]) => {
+type SetMutations<RtuenType> = (mb: PothosSchemaTypes.MutationFieldBuilder<SchemaType, SchemaType["Root"]>) => {
   [mutationName: string]: FieldRef<SchemaType, RtuenType | number | boolean | null | undefined, "Mutation">;
 };
 type AnySetMutations =
@@ -25,7 +25,7 @@ type SetRelations<T extends ObjectRefKey | AnyObject> = T extends ObjectRefKey
 type SetRelation<T, Parent> = (
   object: T,
   relations: {
-    [relationName: string]: (t: Parameters<ObjectFieldThunk<SchemaType, Parent>>[0]) => GenericFieldRef;
+    [relationName: string]: (fb: PothosSchemaTypes.ObjectFieldBuilder<SchemaType, Parent>) => GenericFieldRef;
   },
 ) => void;
 
