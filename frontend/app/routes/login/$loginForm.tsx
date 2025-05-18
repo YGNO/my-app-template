@@ -1,5 +1,5 @@
-import { submitAction } from "@/components/form/formUtils.ts";
-import { InputField } from "@/components/form/inputField.tsx";
+import { FormInput } from "@/components/form/withReactHook/formInput.tsx";
+import { submitAction } from "@/components/form/withReactHook/formUtils.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, CardContent, CardFooter, CardHeader, Form } from "@my-app/shadcn";
 import { useRef } from "react";
@@ -29,10 +29,10 @@ export function LoginForm({ error }: { error?: string }) {
           <CardContent>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <InputField form={formObject} name="email" label="メールアドレス" type="text" />
+                <FormInput form={formObject} name="email" label="メールアドレス" type="text" />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <InputField form={formObject} name="password" label="パスワード" type="password" />
+                <FormInput form={formObject} name="password" label="パスワード" type="password" />
               </div>
             </div>
           </CardContent>
