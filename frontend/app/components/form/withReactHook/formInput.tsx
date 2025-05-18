@@ -1,4 +1,12 @@
-import { FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "@my-app/shadcn";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  cn,
+} from "@my-app/shadcn";
 import type { ComponentProps } from "react";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
@@ -10,9 +18,16 @@ type Props<F extends FieldValues> = {
   name: Path<F>;
 } & ComponentProps<"div">;
 
-export const InputField = <F extends FieldValues>({ label, form, name, type, ...props }: Props<F>) => {
+export const FormInput = <F extends FieldValues>({
+  label,
+  form,
+  name,
+  type,
+  className,
+  ...props
+}: Props<F>) => {
   return (
-    <div {...props}>
+    <div className={cn(className, "select-none")} {...props}>
       <FormField
         control={form.control}
         name={name}
