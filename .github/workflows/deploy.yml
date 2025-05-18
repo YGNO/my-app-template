@@ -38,7 +38,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "sample-app"
-          entrypoint: "index.js"
-          root: "frontend/dist"
+          entrypoint: "frontend/dist/index.js"
+          root: "."
           
           
