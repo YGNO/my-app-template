@@ -42,7 +42,7 @@ const Grid = <DATA,>(
 
   useEffect(() => {
     setMounded(true);
-    setContainerId(`${CONTAINER_ID_PREFIX}${self.crypto.randomUUID()}`);
+    setContainerId(`${CONTAINER_ID_PREFIX}${crypto.randomUUID()}`);
   }, []);
 
   useImperativeHandle(ref, () => ({
