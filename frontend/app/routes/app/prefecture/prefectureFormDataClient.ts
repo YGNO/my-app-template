@@ -1,7 +1,7 @@
+import { genqlClient } from "@/utils/graphqlClient.ts";
 import type { prefectureZod } from "@my-app/graphql-server/zodSchema";
 import type { UseFormReturn } from "react-hook-form";
 import type { z } from "zod";
-import { genqlClient } from "../../../utils/graphqlClient.ts";
 
 const fetchData = async (code: number) => {
   // 顧客情報の取得クエリ
