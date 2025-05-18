@@ -8,6 +8,8 @@
     "@std/path": "jsr:@std/path@^1.0.9"
   },
   "tasks": {
-    "gql:client": "deno run -A genGraphqlClient.ts"
+    "gql:client": "vite build && deno run --unstable-sloppy-imports -A ./dist/genGraphqlClient.mjs",
+    "mw:update": "deno outdated --update",
+    "mw:update:f": "deno outdated --update --latest"
   }
 }

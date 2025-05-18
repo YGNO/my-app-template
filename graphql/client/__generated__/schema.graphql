@@ -1,4 +1,87 @@
-type MunicipalityItem {
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  updatePrefecture(input: updatePrefectureInput!): Boolean
+}
+
+input PrefectureTable_filter {
+  field: PrefectureTable_filter_fields!
+  operator: SlickgridOperator!
+  value: SlickgridFilterValue!
+}
+
+enum PrefectureTable_filter_fields {
+  code
+  name
+  nameAlpha
+  nameKana
+}
+
+input PrefectureTable_order {
+  direction: SlickgridDirection!
+  field: PrefectureTable_order_fields!
+}
+
+enum PrefectureTable_order_fields {
+  code
+  name
+  nameAlpha
+  nameKana
+}
+
+type PrefectureTable_query_node {
+  code: JSON
+  name: JSON
+  nameAlpha: JSON
+  nameKana: JSON
+}
+
+type PrefectureTable_query_result {
+  nodes: [PrefectureTable_query_node!]
+  totalCount: Int
+}
+
+type Query {
+  PrefectureTable(filterBy: [PrefectureTable_filter!], first: Int!, offset: Int!, orderBy: [PrefectureTable_order!]): PrefectureTable_query_result
+  municipalities: [municipality!]
+  municipality(code: Int!): municipality
+  prefecture(code: Int!): prefecture
+  prefectures: [prefecture!]
+}
+
+enum SlickgridDirection {
+  ASC
+  DESC
+  asc
+  desc
+}
+
+scalar SlickgridFilterValue
+
+enum SlickgridOperator {
+  Contains
+  EQ
+  EndsWith
+  GE
+  GT
+  IN
+  LE
+  LT
+  NE
+  NOT_IN
+  Not_Contains
+  StartsWith
+}
+
+type municipality {
   code: Int!
   name: String!
   nameAlpha: String!
@@ -6,17 +89,17 @@ type MunicipalityItem {
   prefectureCode: Int!
 }
 
-type PrefectureItem {
+type prefecture {
   code: Int!
-  municipalities: [MunicipalityItem!]
+  municipalitis: [municipality!]
   name: String!
   nameAlpha: String!
   nameKana: String!
 }
 
-type Query {
-  municipalites: [MunicipalityItem!]
-  municipality(code: Int!): MunicipalityItem
-  prefecture(code: Int!): PrefectureItem
-  prefectures: [PrefectureItem!]
+input updatePrefectureInput {
+  code: Float!
+  name: String!
+  nameAlpha: String!
+  nameKana: String!
 }

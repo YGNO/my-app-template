@@ -1,5 +1,5 @@
 import { generate } from "npm:@genql/cli";
-import { graphqlSchemaString } from "@my-app/graphql-server";
+import { graphqlSchemaString } from "@my-app/graphql-server/graphqlSchema";
 import * as path from "@std/path";
 
 generate({

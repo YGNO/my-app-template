@@ -52,6 +52,7 @@ export const gqlDomain = <T extends ObjectRefKey | AnyObject>(builder: GqlDomain
 const loadGqlDomain = async () => {
   // Note: vite でビルドすることを前提に「import.meta.glob」を使用
   //       vite に依存させず、専用のデコレータを実装する方法もあるが、ルールが複雑化するので実装しない
+  //       これの影響で genQL 側も vite を使用する必要がある
   const loadFuncs = Object.values(import.meta.glob("../schemas/**/*.schema.ts"));
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const modules = await Promise.all(loadFuncs.map((fn) => fn() as any));
