@@ -1,9 +1,8 @@
 import Grid, { type GridHandle } from "@/components/grid/grid.tsx";
-import { buildGridDataFetcher } from "@/components/grid/gridDataFetcher.ts";
-import { SlickgridContext, SlickgridProvider } from "@/components/grid/slickgridProvider.tsx";
-import type { Column, GridOption } from "@slickgrid-universal/common";
-import type { GraphqlServiceApi } from "@slickgrid-universal/graphql";
-import { useContext, useRef } from "react";
+import { GridContext, GridProvider } from "@/components/grid/gridContext.tsx";
+import { useContext, useRef, useState } from "react";
+import { PrefectureForm } from "./$prefectureForm.tsx";
+import { PrefectureGridColumn, PrefectureGridOption } from "./prefectureGridDefine.ts";
 
 type PrefectureGridData = {
   code: number;
@@ -12,96 +11,47 @@ type PrefectureGridData = {
   nameAlpha: string;
 };
 
-const getColumnDef = (): Column[] => {
-  /** id, field は GraphQL のクエリと一致させる必要があるので注意 */
-  return [
-    {
-      id: "code",
-      name: "コード",
-      field: "code",
-      sortable: true,
-      type: "number",
-      filterable: true,
-      minWidth: 100,
-      maxWidth: 100,
-    },
-    {
-      id: "name",
-      name: "都道府県名",
-      field: "name",
-      sortable: true,
-      type: "string",
-      filterable: true,
-      minWidth: 150,
-      maxWidth: 150,
-    },
-    {
-      id: "nameKana",
-      name: "都道府県名（カナ）",
-      field: "nameKana",
-      sortable: true,
-      type: "string",
-      filterable: true,
-      minWidth: 200,
-      maxWidth: 200,
-    },
-    {
-      id: "nameAlpha",
-      name: "都道府県名（ローマ字）",
-      field: "nameAlpha",
-      type: "string",
-      filterable: true,
-      minWidth: 250,
-    },
-  ];
-};
-
-const getGridOption = (backendServiceApi: GraphqlServiceApi): GridOption => {
-  return {
-    gridWidth: "100%",
-    datasetIdPropertyName: "code",
-    enableHeaderMenu: false,
-    enableAutoResize: false,
-    enableFiltering: true,
-    showPreHeaderPanel: false,
-    backendServiceApi,
-  };
-};
-
 const WrapedGrid: React.FC = () => {
   const gridRef = useRef<GridHandle<PrefectureGridData>>(null);
+  const [prefectureCode, setPrefectureCode] = useState<number>();
 
-  const { graphqlService } = useContext(SlickgridContext);
-  if (!graphqlService) {
+  // Note: graphqlService、formatters は SSR で初期化されないので、フロントエンドで初期化されるのを待つ
+  const { graphqlService, formatters } = useContext(GridContext);
+  if (!graphqlService || !formatters) {
     return <div />;
   }
 
-  const gridOption = getGridOption(
-    buildGridDataFetcher<PrefectureGridData>({
+  const option = PrefectureGridOption({
+    fetcher: {
       graphqlService,
-      datasetName: "PrefectureTable",
-      onFetch: ({ data, infiniteScrollBottomHit }) => {
+      onFetch: (data) => {
         if (!gridRef.current) {
           return;
         }
-        if (infiniteScrollBottomHit) {
-          gridRef.current.gridInstance?.dataView?.addItems(data);
-          return;
-        }
-        gridRef.current.gridInstance?.slickGrid.scrollTo(0);
         gridRef.current.setDataset(data);
       },
-    }),
-  );
+    },
+  });
 
-  return <Grid id="prefectureGrid" column={getColumnDef()} options={gridOption} ref={gridRef} />;
+  const column = PrefectureGridColumn(formatters, {
+    onEditAction: (code: number) => {
+      setPrefectureCode(code);
+    },
+  });
+
+  return (
+    <>
+      <PrefectureForm code={prefectureCode} onClose={() => setPrefectureCode(undefined)} />
+      <Grid id="prefectureGrid" column={column} options={option} ref={gridRef} />
+    </>
+  );
 };
 
 const PrefectureGrid: React.FC = () => {
   return (
-    <SlickgridProvider>
+    <GridProvider>
       <WrapedGrid />
-    </SlickgridProvider>
+    </GridProvider>
   );
 };
 
