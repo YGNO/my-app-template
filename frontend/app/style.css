@@ -10,7 +10,7 @@
 @import "tw-animate-css";
 @import "vanilla-calendar-pro/styles/index.css";
 @import "@slickgrid-universal/common/dist/styles/css/slickgrid-theme-material.lite.css";
-@import "@/components/datePicker/datepicker.css";
+@import "@/components/datePicker/datePicker.css";
 @import "@/components/grid/grid.css";
 
 @layer base {
