@@ -7,6 +7,7 @@
     "npm:@egoist/tailwindcss-icons@^1.9.0": "1.9.0_tailwindcss@4.1.7",
     "npm:@genql/cli@*": "6.3.3_graphql@16.11.0_undici@5.29.0",
     "npm:@genql/cli@^6.3.3": "6.3.3_graphql@16.11.0_undici@5.29.0",
+    "npm:@hono/graphql-server@0.6": "0.6.0_hono@4.7.10",
     "npm:@hono/graphql-server@~0.5.1": "0.5.1_hono@4.7.10",
     "npm:@hono/react-renderer@^1.0.1": "1.0.1_hono@4.7.10_react@19.1.0_react-dom@19.1.0__react@19.1.0",
     "npm:@hono/vite-build@^1.6.1": "1.6.1_hono@4.7.10",
@@ -441,6 +442,13 @@
     },
     "@hono/graphql-server@0.5.1_hono@4.7.10": {
       "integrity": "sha512-gYEHsfvUEz1/GQ614N2jihdTInMRCOCo5mvyf6O0rgt5jfGJ+OrL3KeYLStsEYJQlbpk1UlMD8kAC+2bt5wwJg==",
+      "dependencies": [
+        "graphql",
+        "hono"
+      ]
+    },
+    "@hono/graphql-server@0.6.0_hono@4.7.10": {
+      "integrity": "sha512-l74zOUq9+Agspk2tedBFydRAQ2ZxTa8ZVAjlFwpwg1Y2dOuqFkIy4oLud6grih+yJu5y0iMGLukdDsCY+ks4+g==",
       "dependencies": [
         "graphql",
         "hono"
@@ -3005,7 +3013,7 @@
       },
       "graphql/server": {
         "dependencies": [
-          "npm:@hono/graphql-server@~0.5.1",
+          "npm:@hono/graphql-server@0.6",
           "npm:@pothos/core@^4.6.2",
           "npm:@pothos/plugin-add-graphql@^4.2.3",
           "npm:@pothos/plugin-dataloader@^4.4.1",

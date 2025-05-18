@@ -13,6 +13,7 @@ import {
   SlickgridFilterResolver,
   type SlickgridFilterValue,
 } from "./utils/gridQuery.ts";
+import { loadGqlDomain } from "./utils/loadGqlDomain.ts";
 
 const { entities } = buildSchema(dbClient);
 type ObjectKey = keyof typeof dbSchema;
@@ -67,7 +68,8 @@ for (const tableName of tabeleNameList) {
 }
 
 // 必ず schemaBuilder に共通オブジェクトを定義してから実行すること
-await buildGqlDomain(schemaBuilder);
+const gqlDomainBuilders = loadGqlDomain();
+buildGqlDomain(schemaBuilder, gqlDomainBuilders);
 
 const graphqlSchema = schemaBuilder.toSchema();
 export default graphqlSchema;

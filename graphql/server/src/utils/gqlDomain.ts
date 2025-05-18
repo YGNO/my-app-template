@@ -45,31 +45,20 @@ export interface GqlDomain<T extends ObjectRefKey | AnyObject> {
 
 /** ドメイン毎の定義を Schem に登録する関数型 */
 type GqlDomainBuilder<T extends ObjectRefKey | AnyObject> = (schemaBuilder: SchemaBuilderType) => GqlDomain<T>;
+export type AnyGqlDomainBuilder = GqlDomainBuilder<ObjectRefKey | AnyObject>;
 
 export const gqlDomain = <T extends ObjectRefKey | AnyObject>(builder: GqlDomainBuilder<T>) => builder;
-
-/** gqlDomain を定義したファイルを読み込む */
-const loadGqlDomain = async () => {
-  // Note: vite でビルドすることを前提に「import.meta.glob」を使用
-  //       vite に依存させず、専用のデコレータを実装する方法もあるが、ルールが複雑化するので実装しない
-  //       これの影響で genQL 側も vite を使用する必要がある
-  const loadFuncs = Object.values(import.meta.glob("../schemas/**/*.schema.ts"));
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const modules = await Promise.all(loadFuncs.map((fn) => fn() as any));
-  return modules.map((m) => m.default as GqlDomainBuilder<ObjectRefKey | AnyObject>);
-};
 
 /**
  * gqlDomain を schema に登録する
  * @param sb スキーマビルダ
- * @param entries 定義を配置しているディレクトリ
+ * @param gqlDomainBuilders
  */
-export const buildGqlDomain = async (sb: SchemaBuilderType) => {
-  const builders = await loadGqlDomain();
+export const buildGqlDomain = (sb: SchemaBuilderType, gqlDomainBuilders: AnyGqlDomainBuilder[]) => {
   const queriesDef: AnySetQueries[] = [];
   const mutationsDef: AnySetMutations[] = [];
   const relationsDef: AnySetRelations[] = [];
-  for (const domainBuilder of builders) {
+  for (const domainBuilder of gqlDomainBuilders) {
     const { queries, mutations, relations } = domainBuilder(sb);
     queries && queriesDef.push(queries);
     mutations && mutationsDef.push(mutations);

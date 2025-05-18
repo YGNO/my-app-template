@@ -48,6 +48,9 @@ export default defineConfig(({ mode }) => {
       jsx: "automatic",
       jsxImportSource: "react",
     },
+    build: {
+      target: "esnext",
+    },
     // Note: @deno/vite-plugin を利用すると、特定の npm インストールしたモジュールロードのパフォーマンスが劣化するので利用しない。
     //       この関係上、jsr、http を利用したモジュールのインポートは実施できない、多分。
     plugins: [
