@@ -21,7 +21,7 @@ export const PrefectureGridColumn = (
   return [
     editActionColumn(formatters, {
       onClick(_e: Event, args: OnEventArgs) {
-        action.onEditAction(Number(args.dataContext.id));
+        action.onEditAction(Number(args.dataContext.code));
       },
     }),
     {

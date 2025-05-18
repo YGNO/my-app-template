@@ -18,15 +18,15 @@ const fetchData = async (code: number) => {
   });
 };
 
-export const updateCustomerData = async (input: PrefectureFormType) => {
+export const updatePrefecture = async (input: PrefectureFormType) => {
   await genqlClient.mutation({
-    updateCustomerData: {
+    updatePrefecture: {
       __args: { input },
     },
   });
 };
 
-type PrefectureFormType = z.infer<typeof prefectureZod>;
+export type PrefectureFormType = z.infer<typeof prefectureZod>;
 
 export const getDefaultPrefecture = (): PrefectureFormType => ({
   code: 0,
@@ -35,7 +35,7 @@ export const getDefaultPrefecture = (): PrefectureFormType => ({
   nameAlpha: "",
 });
 
-export const fetchCustomer = async (
+export const fetchPrefecture = async (
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   formObject: UseFormReturn<PrefectureFormType, any, PrefectureFormType>,
   code?: number,
