@@ -29,7 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "deno install"
+        run: "deno install && deno add npm:regenerator-runtime"
 
       - name: Build step
         run: "deno task f:build"
