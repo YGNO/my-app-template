@@ -12,19 +12,14 @@ export default defineConfig({
   },
 
   build: {
-    target: "esnext",
     lib: {
       entry: resolve("./genGraphqlClient.ts"),
       formats: ["es"],
+      fileName: "script",
     },
     outDir: "dist",
     rollupOptions: {
       external: ["pg", "@std/path", "npm:@genql/cli"],
-      output: {
-        preserveModules: true,
-        preserveModulesRoot: ".",
-        exports: "named",
-      },
     },
   },
 });
