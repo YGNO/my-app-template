@@ -1,4 +1,5 @@
-import { GRAPHQL_ENTRY_URL } from "@/utils/graphQlClient.ts";
+import { GRAPHQL_ENTRY_URL } from "@/utils/graphqlClient.ts";
+import type { Metrics } from "@slickgrid-universal/common";
 import type {
   GraphqlPaginatedResult,
   GraphqlResult,
@@ -24,17 +25,18 @@ type GridDate = Record<string, unknown>;
 
 type Props<DATA extends GridDate> = {
   graphqlService: GraphqlService;
-  onFetch: (data: {
+  onFetch?: (data: {
     data: DATA[];
     totalCount: number;
     infiniteScrollBottomHit?: boolean;
+    metrics?: Metrics;
   }) => void;
 } & GraphqlServiceOption;
 
 /**
- * グリッドデータの取得用のAPIを生成する
+ * グリッドデータの取得サービス
  */
-export const buildGridDataFetcher = <DATA extends GridDate>({
+export const GridDataFetcher = <DATA extends GridDate>({
   graphqlService,
   infiniteScroll = { fetchSize: 30 },
   onFetch,
@@ -56,7 +58,10 @@ export const buildGridDataFetcher = <DATA extends GridDate>({
       const nodes = (data.nodes ?? []) as DATA[];
       const totalCount = data.totalCount ?? 0;
       const infiniteScrollBottomHit = "infiniteScrollBottomHit" in result ? result.infiniteScrollBottomHit : false;
-      onFetch({ data: nodes, totalCount, infiniteScrollBottomHit });
+      const metrics = result.metrics as Metrics;
+      if (onFetch) {
+        onFetch({ data: nodes, totalCount, infiniteScrollBottomHit, metrics });
+      }
     },
   };
 };

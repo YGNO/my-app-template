@@ -7,9 +7,16 @@ type Props = {
   children: ReactNode;
   closeOnOutsideClick?: boolean;
   modal?: boolean;
-} & ComponentProps<"div">;
+} & ComponentProps<typeof SheetContent>;
 
-export const GridEditForm = ({ open, closeOnOutsideClick = true, onClose, modal, children, ...props }: Props) => {
+export const GridEditForm = ({
+  open,
+  closeOnOutsideClick = true,
+  onClose,
+  modal,
+  children,
+  ...props
+}: Props) => {
   return (
     <Sheet
       modal={modal}

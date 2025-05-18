@@ -3,12 +3,12 @@ import type { GraphqlService } from "@slickgrid-universal/graphql";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 
-export const SlickgridContext = createContext<{
+export const GridContext = createContext<{
   formatters?: IFormatters;
   graphqlService?: GraphqlService;
 }>({});
 
-export const SlickgridProvider = ({ children }: { children: React.ReactNode }) => {
+export const GridProvider = ({ children }: { children: React.ReactNode }) => {
   const [formatters, setFormatters] = useState<IFormatters>();
   const [graphqlService, setGraphqlService] = useState<GraphqlService>();
 
@@ -26,5 +26,7 @@ export const SlickgridProvider = ({ children }: { children: React.ReactNode }) =
     })();
   }, []);
 
-  return <SlickgridContext.Provider value={{ formatters, graphqlService }}>{children}</SlickgridContext.Provider>;
+  return (
+    <GridContext.Provider value={{ formatters, graphqlService }}>{children}</GridContext.Provider>
+  );
 };

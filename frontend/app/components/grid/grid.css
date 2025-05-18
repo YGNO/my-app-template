@@ -1,0 +1,9 @@
+div[id^="grid-container_"] {
+  --slick-icon-sort-font-size: 27px;
+  --slick-header-column-height: 20px;
+  --slick-icon-sort-position-top: 4px;
+  --slick-icon-sort-color: oklch(from var(--primary) l c h / .6);
+  --slick-edit-icon-color: oklch(from var(--primary) l c h / .6);
+  --slick-pagination-icon-color: oklch(from var(--primary) l c h / .6);
+  --slick-form-control-focus-border-color: var(--primary);
+}
