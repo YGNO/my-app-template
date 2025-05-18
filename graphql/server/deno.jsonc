@@ -1,7 +1,8 @@
 {
   "name": "@my-app/graphql-server",
   "exports": {
-    ".": "./mod.ts"
+    "./graphqlSchema": "./graphqlMod.ts",
+    "./zodSchema": "./zodMod.ts"
   },
   "compilerOptions": {
     "types": ["vite/client"]

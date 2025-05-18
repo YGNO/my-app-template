@@ -16,7 +16,8 @@ export default defineConfig(({ mode }) => {
     // Note: モノレポの依存関係を vite が解決してくれないので、直接パスを記載
     "@my-app/shadcn": resolve("../shadcn/mod.ts"),
     "@my-app/db-client": resolve("../dbClient/src/dbClient.ts"),
-    "@my-app/graphql-server": resolve("../graphql/server/mod.ts"),
+    "@my-app/graphql-server/graphqlSchema": resolve("../graphql/server/graphqlMod.ts"),
+    "@my-app/graphql-server/zodSchema": resolve("../graphql/server/zodMod.ts"),
     "@my-app/graphql-client": resolve("../graphql/client/__generated__/index.ts"),
   };
   if (mode === "production") {
