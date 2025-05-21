@@ -1,4 +1,3 @@
-import { AppSidebarMenuButton } from "@/islands/layout/sidber/appSidebarMenuButton.tsx";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +9,7 @@ import {
   SidebarProvider,
 } from "@my-app/shadcn";
 import { Calendar, IdCard, Inbox, Search, Settings } from "lucide-react";
+import { AppSidebarMenuButton } from "./appSidebarMenuButton.tsx";
 import { AppSidebarTrigger } from "./appSidebarTrigger.tsx";
 
 // Menu items.
