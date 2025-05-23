@@ -26,7 +26,5 @@ export const GridProvider = ({ children }: { children: React.ReactNode }) => {
     })();
   }, []);
 
-  return (
-    <GridContext.Provider value={{ formatters, graphqlService }}>{children}</GridContext.Provider>
-  );
+  return <GridContext.Provider value={{ formatters, graphqlService }}>{children}</GridContext.Provider>;
 };

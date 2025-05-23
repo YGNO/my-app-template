@@ -1,5 +1,5 @@
 import Grid, { type GridHandle } from "@/components/grid/grid.tsx";
-import { GridContext, GridProvider } from "@/components/grid/gridContext.tsx";
+import { GridContext, GridProvider } from "@/components/grid/gridProvider.tsx";
 import { useContext, useRef, useState } from "react";
 import { PrefectureForm } from "./$prefectureForm.tsx";
 import { PrefectureGridColumn, PrefectureGridOption } from "./prefectureGridDefine.ts";

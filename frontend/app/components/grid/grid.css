@@ -2,8 +2,25 @@ div[id^="grid-container_"] {
   --slick-icon-sort-font-size: 27px;
   --slick-header-column-height: 20px;
   --slick-icon-sort-position-top: 4px;
-  --slick-icon-sort-color: oklch(from var(--primary) l c h / .6);
-  --slick-edit-icon-color: oklch(from var(--primary) l c h / .6);
-  --slick-pagination-icon-color: oklch(from var(--primary) l c h / .6);
+  --slick-icon-sort-color: oklch(from var(--primary) l c h / 0.6);
+  --slick-edit-icon-color: oklch(from var(--primary) l c h / 0.6);
+  --slick-pagination-icon-color: oklch(from var(--primary) l c h / 0.6);
   --slick-form-control-focus-border-color: var(--primary);
+  --slick-row-mouse-hover-color: var(--color-primary-foreground);
+}
+
+div[id^="grid-container_"] .slickgrid-container {
+  border-radius: calc(var(--radius) + 4px);
+  overflow: hidden;
+}
+
+div[id^="grid-container_"] .fetching .grid-canvas::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: block;
+  background-color: oklch(from var(--muted-foreground) l c h / 0.4);
 }

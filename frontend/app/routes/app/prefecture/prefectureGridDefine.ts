@@ -1,5 +1,5 @@
-import { editActionColumn } from "@/components/grid/gridColumn.ts";
-import { GridDataFetcher } from "@/components/grid/gridDataFetcher.ts";
+import { treeActionColumn } from "@/components/grid/gridColumn.tsx";
+import { gridDataFetcher } from "@/components/grid/gridDataFetcher.ts";
 import type { GridOption } from "@/components/grid/gridOption.ts";
 import type { Column, IFormatters, OnEventArgs } from "@slickgrid-universal/common";
 
@@ -19,7 +19,7 @@ export const PrefectureGridColumn = (
 ): Column[] => {
   /** id, field は GraphQL のクエリと一致させる必要があるので注意 */
   return [
-    editActionColumn(formatters, {
+    treeActionColumn(formatters, {
       onClick(_e: Event, args: OnEventArgs) {
         action.onEditAction(Number(args.dataContext.code));
       },
@@ -82,7 +82,7 @@ export const PrefectureGridOption: GridOption<PrefectureGridData> = ({ fetcher }
     },
     backendServiceApi:
       fetcher &&
-      GridDataFetcher<PrefectureGridData>({
+      gridDataFetcher<PrefectureGridData>({
         graphqlService: fetcher.graphqlService,
         datasetName: GRID_QUERY_NAME,
         infiniteScroll: false,

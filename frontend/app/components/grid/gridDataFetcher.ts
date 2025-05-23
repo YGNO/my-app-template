@@ -1,4 +1,4 @@
-import { GRAPHQL_ENTRY_URL } from "@/utils/graphqlClient.ts";
+import { GRAPHQL_ENTRY_URL } from "@/utils/graphQlClient.ts";
 import type { Metrics } from "@slickgrid-universal/common";
 import type {
   GraphqlPaginatedResult,
@@ -34,9 +34,9 @@ type Props<DATA extends GridDate> = {
 } & GraphqlServiceOption;
 
 /**
- * グリッドデータの取得サービス
+ * グリッドデータの取得用のAPIを生成する
  */
-export const GridDataFetcher = <DATA extends GridDate>({
+export const gridDataFetcher = <DATA extends GridDate>({
   graphqlService,
   infiniteScroll = { fetchSize: 30 },
   onFetch,
@@ -49,7 +49,14 @@ export const GridDataFetcher = <DATA extends GridDate>({
       infiniteScroll,
     },
     service: graphqlService,
-    process: fetchClient.query,
+    process: async (queryString) => {
+      try {
+        return await fetchClient.query(queryString);
+      } catch (e) {
+        console.error("GraphQLの取得に失敗しました。", e);
+        throw e;
+      }
+    },
     postProcess: (result: GraphqlResult | GraphqlPaginatedResult) => {
       const data = result.data[options.datasetName]!;
       if (Array.isArray(data)) {

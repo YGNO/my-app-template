@@ -1,0 +1,19 @@
+.animate-processing-bar {
+  animation: processing-bar 2s infinite;
+}
+.animate-processing-bar-100 {
+  animation: processing-bar 2s infinite;
+  animation-delay: 100ms;
+}
+.animate-processing-bar-200 {
+  animation: processing-bar 2s infinite;
+  animation-delay: 200ms;
+}
+
+@keyframes processing-bar {
+  50% {
+    width: 5px;
+    margin-right: 74px;
+    opacity: 0.1;
+  }
+}
