@@ -24,3 +24,7 @@ div[id^="grid-container_"] .fetching .grid-canvas::after {
   display: block;
   background-color: oklch(from var(--muted-foreground) l c h / 0.4);
 }
+
+div.slick-row:has(div > i[role="treeRoot"]) {
+  background-color: silver !important;
+}
