@@ -26,5 +26,9 @@ div[id^="grid-container_"] .fetching .grid-canvas::after {
 }
 
 div.slick-row:has(div > i[role="treeRoot"]) {
-  background-color: silver !important;
+  /* pointer-events: none; */
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: #f2f2f2 !important;
+  color: #999999 !important;
 }

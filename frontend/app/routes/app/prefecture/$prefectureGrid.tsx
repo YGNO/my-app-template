@@ -42,7 +42,15 @@ const WrapedGrid: React.FC = () => {
   return (
     <>
       <PrefectureForm code={prefectureCode} onClose={() => setPrefectureCode(undefined)} />
-      <Grid id="prefectureGrid" column={column} options={option} ref={gridRef} />
+      <Grid
+        id="prefectureGrid"
+        column={column}
+        options={option}
+        ref={gridRef}
+        onCellClick={(r, c, i) => {
+          setPrefectureCode(i.code);
+        }}
+      />
     </>
   );
 };

@@ -25,10 +25,11 @@ const SlickgridReact = lazy(async () => {
   };
 });
 
-interface GridProps {
+interface GridProps<DATA> {
   id?: string;
   column: Column[];
   options?: GridOption;
+  onCellClick?: (row: number, cell: number, item: DATA) => void;
 }
 
 export interface GridHandle<DATA> {
@@ -41,7 +42,7 @@ const loading = <Loading />;
 
 const CONTAINER_ID_PREFIX = "grid-container_";
 const Grid = <DATA,>(
-  { id, column, options }: GridProps,
+  { id, column, options, onCellClick }: GridProps<DATA>,
   ref: React.Ref<GridHandle<DATA>>,
 ): React.ReactElement | null => {
   const [mounded, setMounded] = useState(false);
@@ -81,6 +82,9 @@ const Grid = <DATA,>(
           dataset={dataset}
           ref={gridRef}
           onReactGridCreated={($event) => setGridInstance($event.detail)}
+          onClick={(e) =>
+            onCellClick?.(e.detail.args.row, e.detail.args.cell, e.detail.args.grid.getDataItem(e.detail.args.row))
+          }
         />
       </div>
     </Suspense>
@@ -89,5 +93,5 @@ const Grid = <DATA,>(
 
 Grid.displayName = "Grid";
 export default forwardRef(Grid) as <DATA>(
-  props: GridProps & { ref?: React.Ref<GridHandle<DATA>> },
+  props: GridProps<DATA> & { ref?: React.Ref<GridHandle<DATA>> },
 ) => React.ReactElement | null;
